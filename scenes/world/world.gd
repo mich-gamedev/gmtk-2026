@@ -16,6 +16,7 @@ func _state_changed(old: int, new: int) -> void:
 			add_child(fx)
 			var player := PLAYER.instantiate()
 			add_child(player)
+			FishEye.impact()
 
 func _on_survive_timer_timeout() -> void:
 	GameLoop.state = GameLoop.STATE_RESET

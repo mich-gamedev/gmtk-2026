@@ -42,6 +42,8 @@ func _process(delta: float) -> void:
 			if Input.is_action_just_pressed(&"walk_left"): segment += 1
 			if Input.is_action_just_pressed(&"walk_right"): segment -= 1
 			if Input.is_action_just_pressed(&"jump"):
+				if GameLoop.state == GameLoop.STATE_PICK_SEGMENT:
+					FishEye.impact(.375)
 				MainCam.add_cam_offsetter(CameraImpulse.new(
 					16,
 					((segment + .5)/Platform.node.displayed_segments.size() * TAU) + PI,

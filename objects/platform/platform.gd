@@ -23,6 +23,7 @@ func _ready() -> void:
 	_state_changed(GameLoop.state, GameLoop.state)
 
 func _select_changed(index: int) -> void:
+	FishEye.impact(.2)
 	if GameLoop.state == GameLoop.STATE_PLACE_SEGMENT:
 		displayed_segments = placed_segments.duplicate()
 		displayed_segments[index] = picked_segment
@@ -37,6 +38,7 @@ func _select_selected(index: int) -> void:
 		GameLoop.STATE_PICK_SEGMENT:
 			picked_segment = displayed_segments[index]
 			GameLoop.state = GameLoop.STATE_PLACE_SEGMENT
+
 
 func update() -> void:
 	points.clear()
