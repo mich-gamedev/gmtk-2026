@@ -1,0 +1,12 @@
+[gd_resource type="Theme" format=3 uid="uid://b6c6648crt5um"]
+
+[ext_resource type="FontFile" uid="uid://dqd7882p15aom" path="res://assets/fonts/BBH_Bartle/BBHBartle-Regular.ttf" id="1_lhqq7"]
+[ext_resource type="FontFile" uid="uid://d1mc2goouot3i" path="res://assets/fonts/Google_Sans_Flex/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf" id="2_whpug"]
+
+[resource]
+default_font = ExtResource("2_whpug")
+default_font_size = 8
+ClockLabel/base_type = &"Label"
+ClockLabel/colors/font_color = Color(0, 0, 1, 1)
+ClockLabel/font_sizes/font_size = 96
+ClockLabel/fonts/font = ExtResource("1_lhqq7")

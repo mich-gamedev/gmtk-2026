@@ -2,15 +2,15 @@ class_name MainCam extends Camera2D
 
 static var cam: MainCam
 
-@export var player_parallax_scale: Vector2 = Vector2.ONE * .8
-@export var potato_parallax_scale: Vector2 = Vector2.ONE * .05
-
 var _offsetters: Array[CameraOffsetter]
+
+var time: float
 
 func _ready() -> void:
 	cam = self
 
 func _physics_process(delta: float) -> void:
+	time += delta
 	offset = Vector2.ZERO
 	var finished: Array[CameraOffsetter]
 	for i in _offsetters:

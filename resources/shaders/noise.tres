@@ -1,0 +1,13 @@
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://cwediitvte7eu"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_v5dby"]
+noise_type = 2
+frequency = 0.0117
+fractal_type = 0
+fractal_octaves = 2
+fractal_gain = -0.311
+cellular_jitter = 2.775
+domain_warp_amplitude = 26.402
+
+[resource]
+noise = SubResource("FastNoiseLite_v5dby")

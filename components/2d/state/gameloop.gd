@@ -1,0 +1,9 @@
+class_name GameLoop extends Object
+
+enum {
+	STATE_MAIN_MENU,
+	STATE_SURVIVE,
+	STATE_PICK_SEGMENT,
+	STATE_PLACE_SEGMENT,
+	STATE_SHOP
+}
