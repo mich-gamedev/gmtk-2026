@@ -21,6 +21,10 @@ config/icon="uid://b5te0xbrqmlq6"
 
 buses/default_bus_layout="uid://dfg7mgunc68uh"
 
+[autoload]
+
+GameLoop="*uid://d1b4hbs8jcd1y"
+
 [display]
 
 window/size/viewport_width=640
@@ -30,7 +34,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/StyleboxFancy/plugin.cfg", "res://addons/fancy_folder_colors/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/itch_uploader/plugin.cfg", "res://addons/quick_notes_dock/plugin.cfg")
+enabled=PackedStringArray("res://addons/StyleboxFancy/plugin.cfg", "res://addons/fancy_folder_colors/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/itch_uploader/plugin.cfg", "res://addons/quick_notes_dock/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [file_customization]
 
@@ -82,11 +86,11 @@ renderer/rendering_method.mobile="gl_compatibility"
 
 green_filter={
 "type": "color",
-"value": Color(0.2809328, 0.9445038, 0.44208694, 1)
+"value": Color(0.20020004, 0.91, 0.35399008, 1)
 }
 blue_filter={
 "type": "color",
-"value": Color(0, 0.013305664, 0.42578125, 1)
+"value": Color(0.06859999, 0.3073933, 0.49, 1)
 }
 red_filter={
 "type": "color",
@@ -94,7 +98,7 @@ red_filter={
 }
 blue_texture={
 "type": "sampler2D",
-"value": "res://assets/kenney/patterns/pattern_35.svg"
+"value": "res://assets/kenney/patterns/pattern_32.svg"
 }
 green_texture={
 "type": "sampler2D",
@@ -106,7 +110,7 @@ red_texture={
 }
 blue_texture_2={
 "type": "sampler2D",
-"value": "res://assets/kenney/patterns/pattern_19.svg"
+"value": "res://resources/shaders/gradient.tres"
 }
 green_texture_2={
 "type": "sampler2D",
@@ -122,9 +126,25 @@ blue_filter_2={
 }
 green_filter_2={
 "type": "color",
-"value": Color(0.8186075, 1, 0.2538452, 1)
+"value": Color(0.8188694, 1, 0.24687803, 1)
 }
 red_filter_2={
 "type": "color",
 "value": Color(1, 0.9017334, 0.1015625, 1)
+}
+white_filter={
+"type": "color",
+"value": Color(0.82667744, 0.960889, 0.98457336, 1)
+}
+white_filter_2={
+"type": "color",
+"value": Color(0.9284611, 0.70588243, 0.9882353, 1)
+}
+white_texture={
+"type": "sampler2D",
+"value": "res://assets/kenney/patterns/pattern_32.svg"
+}
+white_texture_2={
+"type": "sampler2D",
+"value": "res://resources/shaders/gradient.tres"
 }

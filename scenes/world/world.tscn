@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://6yoiridl8hhw"]
 
 [ext_resource type="Script" uid="uid://bckgdpnt7xxfp" path="res://components/2d/camera/cam.gd" id="1_dphjl"]
+[ext_resource type="Script" uid="uid://bjru67jm8woyy" path="res://scenes/world/world.gd" id="1_j2gmx"]
 [ext_resource type="Script" uid="uid://c8xnlintxa0fx" path="res://scenes/world/clock.gd" id="1_v5dby"]
 [ext_resource type="PackedScene" uid="uid://bo5mohl4fih88" path="res://objects/platform/platform.tscn" id="2_1fp7r"]
-[ext_resource type="PackedScene" uid="uid://b3vlb5w6ki5e0" path="res://objects/player/player.tscn" id="3_1fp7r"]
+[ext_resource type="FontFile" uid="uid://dqd7882p15aom" path="res://assets/fonts/BBH_Bartle/BBHBartle-Regular.ttf" id="2_j2gmx"]
 [ext_resource type="Shader" uid="uid://c3g6upsmgdxy" path="res://resources/shaders/main.gdshader" id="4_6m72w"]
+[ext_resource type="PackedScene" uid="uid://cidchh3ha8jyd" path="res://objects/selector_ui/segment_separator.tscn" id="6_bq33v"]
+[ext_resource type="PackedScene" uid="uid://bimg5sma2sp28" path="res://objects/selector_ui/selector.tscn" id="6_t5ptc"]
 
 [sub_resource type="Animation" id="Animation_6m72w"]
 length = 0.001
@@ -20,58 +23,10 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:offset_transform_position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:offset_transform_scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../Control/Panel:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../Control:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_v5dby"]
 resource_name = "show"
-length = 31.0
+length = 0.25
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -80,72 +35,10 @@ tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, false, true, false, true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:offset_transform_position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.25, 1),
-"transitions": PackedFloat32Array(21.112106, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -90)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:offset_transform_scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.25, 1),
-"transitions": PackedFloat32Array(21.112106, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0.06, 2.62)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../Control/Panel:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../Control:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(1.0005887, 31),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 6.283185307179586]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("..")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"shake"
-}]
+"values": [false, true, false, true, false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t5ptc"]
@@ -153,6 +46,10 @@ _data = {
 &"RESET": SubResource("Animation_6m72w"),
 &"show": SubResource("Animation_v5dby")
 }
+
+[sub_resource type="FontVariation" id="FontVariation_gy4cg"]
+base_font = ExtResource("2_j2gmx")
+spacing_top = -14
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_du3jv"]
 bg_color = Color(0, 1, 1, 1)
@@ -163,6 +60,7 @@ corner_radius_bottom_left = 16
 shader = ExtResource("4_6m72w")
 
 [node name="World" type="Node2D" unique_id=1261762378]
+script = ExtResource("1_j2gmx")
 
 [node name="BG" type="CanvasLayer" parent="." unique_id=657932773]
 layer = -2
@@ -177,6 +75,10 @@ color = Color(0, 1, 0, 1)
 
 [node name="Clock" type="CanvasLayer" parent="." unique_id=709615913]
 layer = -1
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+follow_viewport_enabled = true
+follow_viewport_scale = 0.5
 script = ExtResource("1_v5dby")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Clock" unique_id=649131286]
@@ -184,23 +86,28 @@ root_node = NodePath("../Label")
 libraries/ = SubResource("AnimationLibrary_t5ptc")
 autoplay = &"show"
 
-[node name="Label" type="Label" parent="Clock" unique_id=135847144]
+[node name="Label" type="RichTextLabel" parent="Clock" unique_id=1630188997]
 visible = false
 z_index = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -123.5
+clip_contents = false
+offset_left = -160.0
 offset_top = -58.0
-offset_right = 123.5
+offset_right = 160.0
 offset_bottom = 58.0
-grow_horizontal = 2
-grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
 offset_transform_enabled = true
 theme_type_variation = &"ClockLabel"
-text = "30"
+theme_override_colors/default_color = Color(0, 0, 1, 1)
+theme_override_fonts/normal_font = SubResource("FontVariation_gy4cg")
+theme_override_font_sizes/normal_font_size = 96
+bbcode_enabled = true
+text = "[font_size=40]PLACE
+[font_size=16]your segment"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Control" type="Control" parent="Clock" unique_id=641051567]
 layout_mode = 3
@@ -209,6 +116,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -180.0
+offset_right = -320.0
+offset_bottom = -180.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -222,6 +133,7 @@ offset_bottom = 8.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_du3jv")
 
 [node name="MainCam" type="Camera2D" parent="." unique_id=1072543505]
+physics_interpolation_mode = 2
 ignore_rotation = false
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0
@@ -231,9 +143,6 @@ script = ExtResource("1_dphjl")
 metadata/_custom_type_script = "uid://bckgdpnt7xxfp"
 
 [node name="Platform" parent="." unique_id=1687246455 instance=ExtResource("2_1fp7r")]
-
-[node name="CharacterBody2D" parent="." unique_id=1524859842 instance=ExtResource("3_1fp7r")]
-position = Vector2(0, 4)
 
 [node name="Filter" type="CanvasLayer" parent="." unique_id=1836543944]
 layer = 2
@@ -245,3 +154,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="SegmentSeparator" parent="." unique_id=783285780 instance=ExtResource("6_bq33v")]
+z_index = -10
+
+[node name="Selector" parent="." unique_id=584417876 instance=ExtResource("6_t5ptc")]
+z_index = -5
+
+[node name="SurviveTimer" type="Timer" parent="." unique_id=61534861 groups=["survive_timer"]]
+unique_name_in_owner = true
+wait_time = 30.0
+one_shot = true
+
+[connection signal="timeout" from="SurviveTimer" to="." method="_on_survive_timer_timeout"]

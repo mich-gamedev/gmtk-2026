@@ -1,8 +1,18 @@
 @tool
 class_name PlatformSegment extends Resource
 
-## An array of pieces of wall, with the first index being the main wall connecting to the rest of the world. the X-axis represents where on the segment it's placed with 0 and 1 being each end of the segment, and the Y-axis represents how high it is, with 0 being the end of the circle and 1 being the center
-@export var walls: Array[Curve] = [Curve.new()]
+@export var floor: Curve = Curve.new()
+@export var platform_bottoms: Array[Curve]
+@export var platform_tops: Array[Curve]
 
 func get_floor_y(x: float) -> float:
-	return walls[0].sample_baked(x)
+	return floor.sample_baked(x)
+
+static var unlocked_segments: Array[PlatformSegment] = file_segments
+static var file_segments: Array[PlatformSegment]:
+	get:
+		if file_segments.is_empty():
+			var list := ResourceLoader.list_directory("res://resources/segments/purchasable/")
+			for i in list:
+				file_segments.append(load("res://resources/segments/purchasable/".path_join(i)))
+		return file_segments

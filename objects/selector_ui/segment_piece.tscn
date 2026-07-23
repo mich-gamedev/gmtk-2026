@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c6b05h6aoi3xq"]
+
+[sub_resource type="Curve" id="Curve_00nmt"]
+_data = [Vector2(0.025, 0), 0.0, 2.5043914, 0, 0, Vector2(1, 1), 0.004959393, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 40
+
+[sub_resource type="Gradient" id="Gradient_gy4cg"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.53333336)
+
+[node name="Line2D" type="Line2D" unique_id=1588790408]
+points = PackedVector2Array(0, 0, 180, 0)
+width_curve = SubResource("Curve_00nmt")
+gradient = SubResource("Gradient_gy4cg")

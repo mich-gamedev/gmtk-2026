@@ -1,75 +1,8 @@
 [gd_scene format=3 uid="uid://bo5mohl4fih88"]
 
 [ext_resource type="Script" uid="uid://qawc64c77otq" path="res://objects/platform/platform.gd" id="1_0u1hq"]
-[ext_resource type="Script" uid="uid://6ggxugv0jet3" path="res://resources/segments/segment.gd" id="2_50sok"]
 [ext_resource type="Script" uid="uid://d3k61x4chwmjg" path="res://objects/platform/sprite.gd" id="3_hr83q"]
 [ext_resource type="Shader" uid="uid://c14bimc4lt0fa" path="res://resources/shaders/polygon_wave_2.gdshader" id="3_uwhv2"]
-
-[sub_resource type="Curve" id="Curve_uwhv2"]
-
-[sub_resource type="Resource" id="Resource_hr83q"]
-script = ExtResource("2_50sok")
-walls = Array[Curve]([SubResource("Curve_uwhv2")])
-metadata/_custom_type_script = "uid://6ggxugv0jet3"
-
-[sub_resource type="Curve" id="Curve_50sok"]
-_data = [Vector2(0, 0.25), 0.0, 0.0, 0, 0]
-point_count = 1
-metadata/_snap_enabled = true
-metadata/_snap_count = 20
-
-[sub_resource type="Resource" id="Resource_8mdrb"]
-script = ExtResource("2_50sok")
-walls = Array[Curve]([SubResource("Curve_50sok")])
-metadata/_custom_type_script = "uid://6ggxugv0jet3"
-
-[sub_resource type="Curve" id="Curve_hr83q"]
-
-[sub_resource type="Resource" id="Resource_rrt85"]
-script = ExtResource("2_50sok")
-walls = Array[Curve]([SubResource("Curve_hr83q")])
-metadata/_custom_type_script = "uid://6ggxugv0jet3"
-
-[sub_resource type="Curve" id="Curve_arm82"]
-
-[sub_resource type="Resource" id="Resource_3cyc6"]
-script = ExtResource("2_50sok")
-walls = Array[Curve]([SubResource("Curve_arm82")])
-metadata/_custom_type_script = "uid://6ggxugv0jet3"
-
-[sub_resource type="Curve" id="Curve_2kt0x"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-metadata/_snap_enabled = true
-metadata/_snap_count = 20
-
-[sub_resource type="Resource" id="Resource_jdr3w"]
-script = ExtResource("2_50sok")
-walls = Array[Curve]([SubResource("Curve_2kt0x")])
-metadata/_custom_type_script = "uid://6ggxugv0jet3"
-
-[sub_resource type="Curve" id="Curve_4pxb3"]
-
-[sub_resource type="Resource" id="Resource_g7ett"]
-script = ExtResource("2_50sok")
-walls = Array[Curve]([SubResource("Curve_4pxb3")])
-metadata/_custom_type_script = "uid://6ggxugv0jet3"
-
-[sub_resource type="Curve" id="Curve_0loyn"]
-_data = [Vector2(0, 0), 0.0, 0.5017742, 0, 1, Vector2(1, 0.5017742), 0.5017742, 0.0, 1, 0]
-point_count = 2
-
-[sub_resource type="Resource" id="Resource_5pspf"]
-script = ExtResource("2_50sok")
-walls = Array[Curve]([SubResource("Curve_0loyn")])
-metadata/_custom_type_script = "uid://6ggxugv0jet3"
-
-[sub_resource type="Curve" id="Curve_yq4am"]
-
-[sub_resource type="Resource" id="Resource_ssrue"]
-script = ExtResource("2_50sok")
-walls = Array[Curve]([SubResource("Curve_yq4am")])
-metadata/_custom_type_script = "uid://6ggxugv0jet3"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_arm82"]
 shader = ExtResource("3_uwhv2")
@@ -81,7 +14,6 @@ shader_parameter/jitter_amount = 0.0
 [node name="Platform" type="StaticBody2D" unique_id=1687246455]
 script = ExtResource("1_0u1hq")
 radius = 160.0
-segments = Array[ExtResource("2_50sok")]([SubResource("Resource_hr83q"), SubResource("Resource_8mdrb"), SubResource("Resource_rrt85"), SubResource("Resource_3cyc6"), SubResource("Resource_jdr3w"), SubResource("Resource_g7ett"), SubResource("Resource_5pspf"), SubResource("Resource_ssrue")])
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1169777590]
 material = SubResource("ShaderMaterial_arm82")

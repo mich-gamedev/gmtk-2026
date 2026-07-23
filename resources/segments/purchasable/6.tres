@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PlatformSegment" format=3 uid="uid://b0m2gyy52qc43"]
+
+[ext_resource type="Script" uid="uid://6ggxugv0jet3" path="res://resources/segments/segment.gd" id="1_7rtqt"]
+
+[sub_resource type="Curve" id="Curve_v5dby"]
+_data = [Vector2(0, 0.2), 0.0, -0.20000002, 0, 1, Vector2(1, 0), -0.20000002, 0.0, 1, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[resource]
+script = ExtResource("1_7rtqt")
+floor = SubResource("Curve_v5dby")
+metadata/_custom_type_script = "uid://6ggxugv0jet3"

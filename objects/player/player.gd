@@ -39,6 +39,9 @@ func _physics_process(delta: float) -> void:
 		coyote_timer.start()
 
 	if Input.is_action_just_pressed(&"jump"):
+		if GameLoop.state != GameLoop.STATE_SURVIVE:
+			print("doing the thing")
+			GameLoop.state = GameLoop.STATE_SURVIVE
 		is_jumping = true
 		buffer_timer.start()
 
@@ -57,6 +60,7 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 	shape.rotation = (get_floor_normal() if is_on_floor() else up_direction).angle() + PI/2
 	#MainCam.cam.rotation = up_direction.angle()  + PI/2
+	MainCam.cam.global_position = global_position * .1
 
 func jump(jump_scale: float = 1.) -> void:
 	virt_velocity.y = -jump_speed * jump_scale

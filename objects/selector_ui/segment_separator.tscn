@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cidchh3ha8jyd"]
+
+[ext_resource type="Script" uid="uid://btdnk2vcm0ng7" path="res://objects/selector_ui/segment_separator.gd" id="1_kmyum"]
+
+[node name="SegmentSeparator" type="Node2D" unique_id=783285780]
+script = ExtResource("1_kmyum")

@@ -1,0 +1,169 @@
+[gd_scene format=3 uid="uid://bimg5sma2sp28"]
+
+[ext_resource type="Script" uid="uid://crkavrdu4ckx3" path="res://objects/selector_ui/selector.gd" id="1_sqrbl"]
+
+[sub_resource type="Curve" id="Curve_t5ptc"]
+_data = [Vector2(0.025, 0), 0.0, 25.51219, 0, 0, Vector2(0.15, 1), 0.0, 0.0, 0, 0, Vector2(0.29999, 1), 0.004959393, 0.0, 0, 0, Vector2(0.85, 1), 0.0, 0.0, 0, 0, Vector2(0.975, 0), -25.53898, 0.0, 0, 0]
+point_count = 5
+metadata/_snap_enabled = true
+metadata/_snap_count = 40
+
+[sub_resource type="Gradient" id="Gradient_sqrbl"]
+offsets = PackedFloat32Array(0, 0.025, 0.975, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 40
+
+[sub_resource type="Animation" id="Animation_sqrbl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.6)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mfndj"]
+resource_name = "flash"
+length = 0.39999999999999997
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_s1u58"]
+resource_name = "hide"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.6), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8ghsp"]
+resource_name = "show"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s1u58"]
+_data = {
+&"RESET": SubResource("Animation_sqrbl"),
+&"flash": SubResource("Animation_mfndj"),
+&"hide": SubResource("Animation_s1u58"),
+&"show": SubResource("Animation_8ghsp")
+}
+
+[node name="Line2D" type="Line2D" unique_id=584417876]
+points = PackedVector2Array(-1, -1, -58.36435, 103.46839, -124, 223, 152.51741, 234.68384, 69.831436, 107.742195, -1, -1)
+closed = true
+width = 32.0
+width_curve = SubResource("Curve_t5ptc")
+gradient = SubResource("Gradient_sqrbl")
+antialiased = true
+script = ExtResource("1_sqrbl")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1125020103]
+show_behind_parent = true
+color = Color(1, 1, 1, 0.6)
+polygon = PackedVector2Array(-1, -1, -58.36435, 103.46839, -124, 223, 152.51741, 234.68384, 69.831436, 107.742195, -1, -1)
+uv = PackedVector2Array(-1, -1, -58.36435, 103.46839, -124, 223, 152.51741, 234.68384, 69.831436, 107.742195, -1, -1)
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1904775922]
+root_node = NodePath("../Polygon2D")
+libraries/ = SubResource("AnimationLibrary_s1u58")
+autoplay = &"hide"
