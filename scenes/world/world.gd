@@ -6,6 +6,7 @@ const PLAYER = preload("uid://b3vlb5w6ki5e0")
 
 func _ready() -> void:
 	GameLoop.state_changed.connect(_state_changed)
+	_state_changed(GameLoop.state, GameLoop.state)
 
 func _state_changed(old: int, new: int) -> void:
 	randomize_colors()
@@ -17,6 +18,12 @@ func _state_changed(old: int, new: int) -> void:
 			var player := PLAYER.instantiate()
 			add_child(player)
 			FishEye.impact()
+		GameLoop.STATE_DIE:
+			await get_tree().process_frame
+			GameLoop.state = GameLoop.STATE_PICK_SEGMENT
+		GameLoop.STATE_RESET:
+			await get_tree().process_frame
+			GameLoop.state = GameLoop.STATE_SURVIVE
 
 func _on_survive_timer_timeout() -> void:
 	GameLoop.state = GameLoop.STATE_RESET
@@ -39,7 +46,7 @@ func randomize_colors() -> void:
 	new_colors = ColorPack.new()
 	var bg := Color.from_hsv(
 		randf_range(.16, 1),
-		randf_range(.4, .8),
+		randf_range(.5, .8),
 		randf_range(.85, .95)
 	)
 	new_colors.bg = bg
@@ -61,15 +68,16 @@ func randomize_colors() -> void:
 	new_colors.fg2 = fg2
 
 	var dg := Color.from_hsv(
-		rotate_toward(bg.h * TAU, 0. if absf(bg.h - .16) < min(bg.h, 1 - bg.h) else .16, randf_range(0.85, 1)),
+		#.16,
+		clamp(wrapf(bg.h + .5, 0, 1), 0, .16),
 		randf_range(0.9, 1),
 		randf_range(.75, .95)
 	)
 	new_colors.dg = dg
 	var dg2 := dg
-	dg.s += randf_range(-0.1, 0)
-	dg.v += randf_range(0, 0.1)
-	dg.h -= randf_range(-.15, .15)
+	dg2.s += randf_range(-0.1, 0)
+	dg2.v += randf_range(0.05, 0.2)
+	dg2.h -= randf_range(-.15, .15)
 	new_colors.dg2 = dg2
 	if twn: twn.kill()
 	twn = create_tween()

@@ -23,7 +23,7 @@ func _ready() -> void:
 	_state_changed(GameLoop.state, GameLoop.state)
 
 func _select_changed(index: int) -> void:
-	FishEye.impact(.2)
+	FishEye.impact(-.25)
 	if GameLoop.state == GameLoop.STATE_PLACE_SEGMENT:
 		displayed_segments = placed_segments.duplicate()
 		displayed_segments[index] = picked_segment
@@ -75,6 +75,9 @@ func _state_changed(old: int, new: int) -> void:
 			update()
 		GameLoop.STATE_SURVIVE:
 			displayed_segments = placed_segments.duplicate()
+			update()
+		GameLoop.STATE_RESET:
+			placed_segments = get_empty_segments(6)
 			update()
 
 func get_empty_segments(size: int) -> Array[PlatformSegment]:

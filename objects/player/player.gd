@@ -18,6 +18,9 @@ var virt_velocity: Vector2
 @onready var buffer_timer: Timer = $BufferTimer
 @onready var shape: CollisionShape2D = $CollisionShape2D
 
+func _ready() -> void:
+	GameLoop.state_changed.connect(_state_changed)
+
 func _physics_process(delta: float) -> void:
 
 	#region circular movement handling
@@ -75,3 +78,7 @@ func _buffer_timeout() -> void:
 
 #func _draw() -> void:
 	#draw_line(Vector2.ZERO, up_direction * 64, Color.AQUAMARINE)
+
+func _state_changed(old: int, new: int) -> void:
+	if new in [GameLoop.STATE_RESET, GameLoop.STATE_DIE]:
+		queue_free()

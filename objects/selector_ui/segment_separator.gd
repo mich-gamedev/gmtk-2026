@@ -5,6 +5,7 @@ const SEGMENT_PIECE = preload("uid://c6b05h6aoi3xq")
 func _ready() -> void:
 	_update()
 	GameLoop.state_changed.connect(_state_changed)
+	_state_changed(GameLoop.state, GameLoop.state)
 
 func _update() -> void:
 	for i in get_children():

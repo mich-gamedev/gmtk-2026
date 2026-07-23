@@ -6,6 +6,7 @@ uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform float effect_amount : hint_range(-2.5, 2.5) = 1.0;
 
 void fragment() {
+	if (effect_amount != 0.) {
 	// glsl -> godot shader
 	vec2 iResolution = 1.0 / SCREEN_PIXEL_SIZE;
 	vec4 fragCoord = FRAGCOORD;
@@ -55,4 +56,5 @@ void fragment() {
 	vec3 col = texture(SCREEN_TEXTURE, uv).rgb;
 
 	COLOR = vec4(col, 1.0);
+	}
 }

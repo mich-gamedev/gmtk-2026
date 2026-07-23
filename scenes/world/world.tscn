@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bimg5sma2sp28" path="res://objects/selector_ui/selector.tscn" id="6_t5ptc"]
 [ext_resource type="Shader" uid="uid://by12el5scrvjx" path="res://resources/shaders/fisheye.gdshader" id="7_gb53w"]
 [ext_resource type="Script" uid="uid://d1iej1ifgper7" path="res://scenes/world/fisheye.gd" id="8_5qq27"]
+[ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="11_5qq27"]
 
 [sub_resource type="Animation" id="Animation_6m72w"]
 length = 0.001
@@ -63,7 +64,7 @@ shader = ExtResource("4_6m72w")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_du3jv"]
 shader = ExtResource("7_gb53w")
-shader_parameter/effect_amount = 1.1875000005545644e-07
+shader_parameter/effect_amount = -0.19999989075000002
 
 [node name="World" type="Node2D" unique_id=1261762378]
 script = ExtResource("1_j2gmx")
@@ -184,5 +185,13 @@ z_index = -5
 unique_name_in_owner = true
 wait_time = 30.0
 one_shot = true
+
+[node name="RingDraw" type="Node2D" parent="." unique_id=2081813499]
+position = Vector2(56, 40)
+script = ExtResource("11_5qq27")
+width = 8.0
+draw_color = Color(1, 0, 0, 1)
+fill_color = Color(1, 1, 0, 0)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
 
 [connection signal="timeout" from="SurviveTimer" to="." method="_on_survive_timer_timeout"]
