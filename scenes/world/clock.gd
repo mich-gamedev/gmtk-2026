@@ -10,8 +10,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	rotation = MainCam.cam.get_screen_rotation()
-	if GameLoop.state == GameLoop.STATE_SURVIVE:
-		label.text = "%02d" % survive_timer.time_left
+	if GameLoop.state == GameLoop.STATE_SURVIVE and !survive_timer.is_stopped():
+		label.text = "%02d" % ceil(survive_timer.time_left)
 
 func shake() -> void:
 	MainCam.add_cam_offsetter(CameraShake.new())
@@ -25,6 +25,9 @@ func _state_changed(old: int, new: int) -> void:
 			label.text = "[font_size=40]PLACE\n[font_size=16]your segment"
 			anim.play(&"show")
 		GameLoop.STATE_SURVIVE:
+			label.text = "[font_size=40]LVL 01"
+			anim.play(&"show")
+			await get_tree().create_timer(1).timeout
 			anim.play(&"show")
 		_:
 			anim.play(&"RESET")

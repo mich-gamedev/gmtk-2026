@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bimg5sma2sp28" path="res://objects/selector_ui/selector.tscn" id="6_t5ptc"]
 [ext_resource type="Shader" uid="uid://by12el5scrvjx" path="res://resources/shaders/fisheye.gdshader" id="7_gb53w"]
 [ext_resource type="Script" uid="uid://d1iej1ifgper7" path="res://scenes/world/fisheye.gd" id="8_5qq27"]
-[ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="11_5qq27"]
+[ext_resource type="Shader" uid="uid://dky4t2otyayw3" path="res://resources/shaders/colorblind.gdshader" id="12_dlabj"]
 
 [sub_resource type="Animation" id="Animation_6m72w"]
 length = 0.001
@@ -66,6 +66,21 @@ shader = ExtResource("4_6m72w")
 shader = ExtResource("7_gb53w")
 shader_parameter/effect_amount = -0.19999989075000002
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_srmg5"]
+shader = ExtResource("12_dlabj")
+shader_parameter/mode = 0
+shader_parameter/intensity = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dlabj"]
+shader = ExtResource("12_dlabj")
+shader_parameter/mode = 1
+shader_parameter/intensity = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umvgx"]
+shader = ExtResource("12_dlabj")
+shader_parameter/mode = 2
+shader_parameter/intensity = 1.0
+
 [node name="World" type="Node2D" unique_id=1261762378]
 script = ExtResource("1_j2gmx")
 
@@ -108,8 +123,7 @@ theme_override_colors/default_color = Color(0, 0, 1, 1)
 theme_override_fonts/normal_font = SubResource("FontVariation_gy4cg")
 theme_override_font_sizes/normal_font_size = 96
 bbcode_enabled = true
-text = "[font_size=40]PLACE
-[font_size=16]your segment"
+text = "[font_size=40]LVL 01"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -183,15 +197,36 @@ z_index = -5
 
 [node name="SurviveTimer" type="Timer" parent="." unique_id=61534861 groups=["survive_timer"]]
 unique_name_in_owner = true
-wait_time = 30.0
+wait_time = 10.0
 one_shot = true
 
-[node name="RingDraw" type="Node2D" parent="." unique_id=2081813499]
-position = Vector2(56, 40)
-script = ExtResource("11_5qq27")
-width = 8.0
-draw_color = Color(1, 0, 0, 1)
-fill_color = Color(1, 1, 0, 0)
-metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1087292355]
+layer = 10
+visible = false
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1692140197]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HBoxContainer" unique_id=1644982699]
+material = SubResource("ShaderMaterial_srmg5")
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/HBoxContainer" unique_id=2009580849]
+material = SubResource("ShaderMaterial_dlabj")
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/HBoxContainer" unique_id=307443015]
+material = SubResource("ShaderMaterial_umvgx")
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [connection signal="timeout" from="SurviveTimer" to="." method="_on_survive_timer_timeout"]

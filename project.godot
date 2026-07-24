@@ -34,7 +34,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/StyleboxFancy/plugin.cfg", "res://addons/fancy_folder_colors/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/itch_uploader/plugin.cfg", "res://addons/quick_notes_dock/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/StyleboxFancy/plugin.cfg", "res://addons/fancy_folder_colors/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/godot-eyesee/plugin.cfg", "res://addons/itch_uploader/plugin.cfg", "res://addons/quick_notes_dock/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [file_customization]
 

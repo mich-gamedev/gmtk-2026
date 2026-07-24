@@ -19,6 +19,7 @@ var virt_velocity: Vector2
 @onready var shape: CollisionShape2D = $CollisionShape2D
 
 func _ready() -> void:
+	node = self
 	GameLoop.state_changed.connect(_state_changed)
 
 func _physics_process(delta: float) -> void:
@@ -26,7 +27,7 @@ func _physics_process(delta: float) -> void:
 	#region circular movement handling
 	if is_on_floor() or is_on_wall():
 		up_direction = global_position.direction_to(Vector2.ZERO)
-	elif up_direction.angle_to(global_position.direction_to(Vector2.ZERO)) < PI/2: up_direction = global_position.direction_to(Vector2.ZERO)
+	elif up_direction.angle_to(global_position.direction_to(Vector2.ZERO)) < PI/2 and !global_position.is_zero_approx(): up_direction = global_position.direction_to(Vector2.ZERO)
 	#endregion
 	virt_velocity.x = move_toward(virt_velocity.x, Input.get_axis(&"walk_left", &"walk_right") * speed, accel * delta)
 
@@ -62,8 +63,8 @@ func _physics_process(delta: float) -> void:
 	virt_velocity = velocity.rotated(-(up_direction.angle() + PI/2))
 	queue_redraw()
 	shape.rotation = (get_floor_normal() if is_on_floor() else up_direction).angle() + PI/2
-	#MainCam.cam.rotation = up_direction.angle()  + PI/2
-	MainCam.cam.global_position = global_position * .1
+	if Save.fetch().rotate_world: MainCam.cam.rotation = up_direction.angle()  + PI/2
+	else: MainCam.cam.global_position = global_position * .1
 
 func jump(jump_scale: float = 1.) -> void:
 	virt_velocity.y = -jump_speed * jump_scale

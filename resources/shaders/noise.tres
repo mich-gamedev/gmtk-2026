@@ -6,8 +6,9 @@ frequency = 0.0117
 fractal_type = 0
 fractal_octaves = 2
 fractal_gain = -0.311
-cellular_jitter = 0.805
+cellular_jitter = 3.041
 domain_warp_amplitude = 26.402
 
 [resource]
 noise = SubResource("FastNoiseLite_v5dby")
+seamless = true

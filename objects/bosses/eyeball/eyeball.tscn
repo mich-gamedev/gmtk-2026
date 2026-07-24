@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cpoq2v603ma1c"]
+
+[ext_resource type="Script" uid="uid://dyvjst01jqwwu" path="res://objects/bosses/eyeball/eyeball.gd" id="1_au58l"]
+[ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="1_yjnss"]
+[ext_resource type="Script" uid="uid://7vxgteghqohj" path="res://objects/bosses/eyeball/sprite.gd" id="2_j52e6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gy4cg"]
+radius = 18.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1793570480]
+collision_layer = 0
+script = ExtResource("1_au58l")
+
+[node name="Sprite" type="Node2D" parent="." unique_id=1161998829]
+script = ExtResource("2_j52e6")
+
+[node name="Outline" type="Node2D" parent="Sprite" unique_id=1554202917]
+script = ExtResource("1_yjnss")
+width = 12.0
+radius = 16.0
+draw_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="Iris" type="Node2D" parent="Sprite" unique_id=762405811]
+script = ExtResource("1_yjnss")
+width = 0.0
+radius = 8.0
+draw_color = Color(1, 0, 0, 1)
+fill_color = Color(1, 0, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="IrisOutline" type="Node2D" parent="Sprite/Iris" unique_id=1934511406]
+show_behind_parent = true
+script = ExtResource("1_yjnss")
+width = 0.0
+radius = 12.0
+draw_color = Color(0, 1, 0, 1)
+fill_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="Outside" type="Node2D" parent="Sprite" unique_id=2114554077]
+script = ExtResource("1_yjnss")
+radius = 16.0
+draw_color = Color(1, 0, 0, 1)
+fill_color = Color(1, 0, 0.9666667, 0)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=752517990]
+shape = SubResource("CircleShape2D_gy4cg")

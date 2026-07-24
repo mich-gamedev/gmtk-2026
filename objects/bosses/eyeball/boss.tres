@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BossInfo" format=3 uid="uid://byiq5jplqknm7"]
+
+[ext_resource type="PackedScene" uid="uid://cpoq2v603ma1c" path="res://objects/bosses/eyeball/eyeball.tscn" id="1_laig0"]
+[ext_resource type="Script" uid="uid://dt1v12mr4rvol" path="res://objects/bosses/boss_info.gd" id="1_swcny"]
+
+[resource]
+script = ExtResource("1_swcny")
+fx_radius = 24.0
+scene = ExtResource("1_laig0")
+count = 2
+metadata/_custom_type_script = "uid://dt1v12mr4rvol"
