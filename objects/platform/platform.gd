@@ -127,6 +127,11 @@ func _state_changed(old: int, new: int) -> void:
 			else:
 				placed_segments = get_empty_segments(randi_range(3, 8))
 			update()
+		GameLoop.STATE_DIE:
+			if GameLoop.hp == 1: # will be 0
+				await get_tree().create_timer(2).timeout
+				displayed_segments = get_empty_segments(3)
+				update()
 
 func get_empty_segments(size: int) -> Array[PlatformSegment]:
 	var arr : Array[PlatformSegment] = []
