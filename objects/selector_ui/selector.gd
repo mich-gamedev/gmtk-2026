@@ -10,8 +10,10 @@ signal changed(index: int)
 
 @export var segment: int:
 	set(v):
+		await get_tree().process_frame
 		segment = wrapi(v, 0, Platform.node.displayed_segments.size())
 		clear_points()
+		if Save.fetch().rotate_world: MainCam.cam.rotation = (segment + .5)/Platform.node.displayed_segments.size() * TAU - PI/2
 		var new: PackedVector2Array = [
 			Vector2.ZERO,
 			Vector2.from_angle(float(segment)/Platform.node.displayed_segments.size() * TAU) * Platform.node.radius / 2,
@@ -35,9 +37,10 @@ func _ready() -> void:
 	GameLoop.state_changed.connect(_state_changed)
 
 func _process(delta: float) -> void:
-	if GameLoop.state in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT]:
+	if GameLoop.state in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT, GameLoop.STATE_MAIN_MENU]:
 		if anim.assigned_animation == &"hide":
 			anim.play(&"show")
+			if Save.fetch().rotate_world: MainCam.cam.rotation = (segment + .5)/Platform.node.displayed_segments.size() * TAU - PI/2
 		if anim.assigned_animation != &"flash":
 			if Input.is_action_just_pressed(&"walk_left"): segment += 1
 			if Input.is_action_just_pressed(&"walk_right"): segment -= 1
@@ -56,5 +59,7 @@ func _process(delta: float) -> void:
 		anim.play(&"hide")
 
 func _state_changed(old: int, new: int) -> void:
-	if GameLoop.state in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT] and anim.assigned_animation == &"flash":
+	if GameLoop.state in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT, GameLoop.STATE_MAIN_MENU] and anim.assigned_animation == &"flash":
 		anim.play(&"show")
+		if Save.fetch().rotate_world: MainCam.cam.rotation = (segment + .5)/Platform.node.displayed_segments.size() * TAU - PI/2
+		segment = segment

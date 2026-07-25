@@ -6,7 +6,6 @@ class_name FireBullet
 @export_group("Stats")
 @export var speed: float = 160
 @export var cooldown: float = 0.25
-@export var damage: float = 1.0
 @export_group("Random")
 @export_range(0, 180, 0.01, "radians_as_degrees") var random_angle: float
 @export var random_length: float
@@ -47,7 +46,6 @@ func fire_bullet(direction:float) -> Array[Bullet]:
 			get_tree().current_scene.add_child.call_deferred(spawned_bullet)
 			spawned_bullet.global_position = global_position
 			if spawned_bullet is Bullet:
-				(spawned_bullet.hurtbox as Hurtbox).damage = damage
 				if amount > 1:
 					var new_angle := (direction + (i * proj_space) - (range/2.0)) + randf_range(-random_angle, random_angle)
 					spawned_bullet.velocity = Vector2.from_angle(new_angle) * (speed - randf_range(0, random_length))

@@ -1,0 +1,33 @@
+- [ ] 3/5 bosses atleast
+- [x] Main menu
+- [ ] Soundtrack
+- [ ] More platforms
+- [ ] Shop
+- [x] Floating platform implementation
+[hr]
+Boss ideas:
+	- [x] Eyeball
+		Bounces around, sometimes towards player
+	- [x] Balloons
+		If they touch the ground, they spawn a bunch of bullets, player can bounce them up by hitting them
+	- [x] Connector
+		Big bullet bounces around, when it bounces it'll extend a laser that kills the player
+	- [ ] Drone
+		Rapid-fires bullets in player's direction, then dashes to them and bounces around until stopping to shoot again
+	- [ ] Waves
+		Waves of water go over the level, hard to clear without height
+
+	- [ ] Acid Rain
+		Bullets fall from the center, that will stick to whatever they hit
+	- [ ] Mimic
+		Player like boss that tries to move towards player, is slightly faster than player
+	- [ ] Magician
+		Teleports on top of player, waits `n` seconds, then spawns a ring of imploding bullets
+	- [ ] Tire
+		Moves very fast into a wall, hitting a wall causes it's up_direction to flip
+	- [ ] Ripples
+		Laser ripples that slowly move down a segment
+	- [ ] Earthworm
+		Worm that moves across the very bottom of the floor, and rarely jumps up
+	- [ ] Disco
+		Balls of light slowly rotate around map and kill you on touch, you should be able to jump through them

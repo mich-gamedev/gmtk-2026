@@ -3,8 +3,9 @@ extends Node2D
 const SEGMENT_PIECE = preload("uid://c6b05h6aoi3xq")
 
 func _ready() -> void:
-	_update()
 	GameLoop.state_changed.connect(_state_changed)
+	await get_tree().process_frame
+	_update()
 	_state_changed(GameLoop.state, GameLoop.state)
 
 func _update() -> void:
@@ -17,7 +18,7 @@ func _update() -> void:
 		inst.rotation = float(i)/segment_count * TAU
 
 func _state_changed(old: int, new: int) -> void:
-	if new in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT]:
+	if new in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT, GameLoop.STATE_MAIN_MENU]:
 		show()
 		_update.call_deferred()
 	else:

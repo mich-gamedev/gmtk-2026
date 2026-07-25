@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ckvu0yycp6hfc"]
+
+[ext_resource type="Script" uid="uid://1clvba3bqr38" path="res://objects/platform/floating_platform.gd" id="1_i3qx6"]
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=1601131680]
+script = ExtResource("1_i3qx6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=981231636]
+
+[node name="Line2D" type="Line2D" parent="." unique_id=152685730]
+closed = true
+width = 8.0
+default_color = Color(0, 0, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Outline" type="Line2D" parent="Line2D" unique_id=969860096]
+show_behind_parent = true
+closed = true
+width = 16.0
+default_color = Color(0, 1, 0, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="Line2D" unique_id=1169434389]
+z_index = -2
+color = Color(0, 1, 0, 1)
+invert_border = 1280.0

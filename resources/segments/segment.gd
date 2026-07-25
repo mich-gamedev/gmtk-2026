@@ -4,6 +4,7 @@ class_name PlatformSegment extends Resource
 @export var floor: Curve = Curve.new()
 @export var platform_bottoms: Array[Curve]
 @export var platform_tops: Array[Curve]
+@export var platform_ranges: PackedVector2Array
 
 func get_floor_y(x: float) -> float:
 	return floor.sample_baked(x)

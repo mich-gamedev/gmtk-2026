@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BossInfo" format=3 uid="uid://c3i8ko78k6irb"]
+
+[ext_resource type="PackedScene" uid="uid://b6ci2sg0wmx4a" path="res://objects/bosses/balloon/balloon.tscn" id="1_5jblx"]
+[ext_resource type="Script" uid="uid://dt1v12mr4rvol" path="res://objects/bosses/boss_info.gd" id="1_rgf8u"]
+
+[resource]
+script = ExtResource("1_rgf8u")
+fx_radius = 24.0
+scene = ExtResource("1_5jblx")
+count = 4
+double_boss_count = 3
+metadata/_custom_type_script = "uid://dt1v12mr4rvol"

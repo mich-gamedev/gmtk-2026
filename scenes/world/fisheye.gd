@@ -13,3 +13,9 @@ static func impact(intensity: float = -.75, attack_time: float = .15, decay_time
 	twn = node.create_tween()
 	twn.tween_property(node.material as ShaderMaterial, ^"shader_parameter/effect_amount", intensity, attack_time).set_ease(Tween.EASE_OUT).set_trans(attack_trans)
 	twn.tween_property(node.material as ShaderMaterial, ^"shader_parameter/effect_amount", -.2, decay_time).set_ease(Tween.EASE_OUT).set_trans(decay_trans)
+
+static func transition(intensity: float, time: float = .15, ease_type: Tween.EaseType = Tween.EASE_IN, trans_type: Tween.TransitionType = Tween.TRANS_LINEAR) -> void:
+	if !node: return
+	if twn: twn.kill()
+	twn = node.create_tween()
+	twn.tween_property(node.material as ShaderMaterial, ^"shader_parameter/effect_amount", intensity, time).set_ease(ease_type).set_trans(trans_type)

@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://uhmksgxrovt7"]
+
+[ext_resource type="Script" uid="uid://doaxck6l05tyy" path="res://objects/bosses/connector/connector.gd" id="1_ru8t5"]
+[ext_resource type="Script" uid="uid://cjmmhbp1b5312" path="res://addons/StyleboxFancy/StyleBorder.gd" id="1_whn1e"]
+[ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="2_ru8t5"]
+[ext_resource type="Texture2D" uid="uid://cm10uqcs8m47u" path="res://assets/material_symbols/electric_bolt.svg" id="3_4ihm7"]
+
+[sub_resource type="Resource" id="Resource_kqngd"]
+script = ExtResource("1_whn1e")
+color = Color(0, 1, 0, 1)
+width_left = 4
+width_top = 4
+width_right = 4
+width_bottom = 4
+metadata/_custom_type_script = "uid://cjmmhbp1b5312"
+
+[sub_resource type="Resource" id="Resource_daru7"]
+script = ExtResource("1_whn1e")
+color = Color(0, 0, 1, 1)
+width_left = 4
+width_top = 4
+width_right = 4
+width_bottom = 4
+metadata/_custom_type_script = "uid://cjmmhbp1b5312"
+
+[sub_resource type="StyleBox" id="StyleBox_8mt81"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("2_ru8t5")
+color = Color(0, 1, 0, 1)
+borders = Array[ExtResource("1_whn1e")]([SubResource("Resource_kqngd"), SubResource("Resource_daru7")])
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_du3jv"]
+size = Vector2(32, 32)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=7433007]
+collision_layer = 0
+script = ExtResource("1_ru8t5")
+
+[node name="Sprite" type="Node2D" parent="." unique_id=287185858]
+
+[node name="Panel2" type="Panel" parent="Sprite" unique_id=33214876]
+offset_left = -15.942047
+offset_top = -16.009026
+offset_right = 15.89468
+offset_bottom = 15.961666
+rotation = 0.7853982
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBox_8mt81")
+
+[node name="ElectricBolt" type="Sprite2D" parent="." unique_id=603051159]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.615, 0.615)
+texture = ExtResource("3_4ihm7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=921785763]
+position = Vector2(-2.3841858e-07, 2.3841858e-07)
+rotation = 0.7853982
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("RectangleShape2D_du3jv")

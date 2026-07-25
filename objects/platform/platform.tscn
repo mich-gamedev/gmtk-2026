@@ -34,4 +34,6 @@ invert_border = 1280.0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=277919043]
 build_mode = 1
 
+[node name="FloatingPlatformContainer" type="Node2D" parent="." unique_id=125323412]
+
 [connection signal="points_updated" from="." to="Line2D" method="_points_updated"]

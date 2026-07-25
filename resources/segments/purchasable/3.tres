@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://6ggxugv0jet3" path="res://resources/segments/segment.gd" id="1_700gm"]
 
 [sub_resource type="Curve" id="Curve_v5dby"]
-_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.25, 0.2), 0.0, 0.0, 0, 0, Vector2(0.25001, 0.75), 0.0, 0.0, 0, 0, Vector2(0.74999, 0.75), 0.0, 0.0, 0, 0, Vector2(0.75, 0.2), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.25, 0.2), 0.0, 0.0, 0, 0, Vector2(0.25001, 0.6), 0.0, 0.0, 0, 0, Vector2(0.74999, 0.6), 0.0, 0.0, 0, 0, Vector2(0.75, 0.2), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
 point_count = 6
 metadata/_snap_enabled = true
 metadata/_snap_count = 20

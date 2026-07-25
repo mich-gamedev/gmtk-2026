@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PlatformSegment" format=3 uid="uid://254mbqxxvunh"]
+
+[ext_resource type="Script" uid="uid://6ggxugv0jet3" path="res://resources/segments/segment.gd" id="1_2fqo8"]
+
+[sub_resource type="Curve" id="Curve_xl8jg"]
+_data = [Vector2(0, 0.24807686), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[resource]
+script = ExtResource("1_2fqo8")
+floor = SubResource("Curve_xl8jg")
+metadata/_custom_type_script = "uid://6ggxugv0jet3"

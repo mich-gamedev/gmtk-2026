@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://b6ci2sg0wmx4a"]
+
+[ext_resource type="Script" uid="uid://bvl78adj4jj8b" path="res://objects/bosses/balloon/balloon.gd" id="1_3ls6h"]
+[ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="1_8fc25"]
+[ext_resource type="Script" uid="uid://664y6d38hqgk" path="res://components/2d/bullets/fire_bullet.gd" id="3_di0rt"]
+[ext_resource type="PackedScene" uid="uid://c3dhjsmlo3nj" path="res://objects/bosses/balloon/bullet.tscn" id="4_qylmq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_du3jv"]
+radius = 18.027756
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1885536274]
+collision_layer = 2
+script = ExtResource("1_3ls6h")
+
+[node name="Sprite" type="Node2D" parent="." unique_id=591115507]
+
+[node name="RingDraw2" type="Node2D" parent="Sprite" unique_id=1518429219]
+position = Vector2(0, 21)
+script = ExtResource("1_8fc25")
+width = 12.0
+radius = 1.0
+draw_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="RingDraw3" type="Node2D" parent="Sprite" unique_id=34588217]
+script = ExtResource("1_8fc25")
+width = 23.0
+radius = 1.0
+draw_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="ColorRect" type="ColorRect" parent="Sprite" unique_id=782598699]
+clip_children = 1
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 22.0
+
+[node name="RingDraw2" type="Node2D" parent="Sprite/ColorRect" unique_id=665519230]
+position = Vector2(22, 22)
+script = ExtResource("1_8fc25")
+width = 12.0
+radius = 16.0
+draw_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="RingDraw" type="Node2D" parent="Sprite/ColorRect" unique_id=1995157376]
+position = Vector2(22, 22)
+script = ExtResource("1_8fc25")
+radius = 16.0
+draw_color = Color(1, 0, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="ColorRect2" type="ColorRect" parent="Sprite" unique_id=1146048819]
+clip_children = 1
+offset_left = -22.0
+offset_right = 22.0
+offset_bottom = 29.0
+
+[node name="RingDraw2" type="Node2D" parent="Sprite/ColorRect2" unique_id=1314021705]
+position = Vector2(22, 0)
+scale = Vector2(1, 1.21)
+script = ExtResource("1_8fc25")
+width = 12.0
+radius = 16.0
+draw_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="RingDraw" type="Node2D" parent="Sprite/ColorRect2" unique_id=1653788324]
+position = Vector2(22, 0)
+scale = Vector2(1, 1.25)
+script = ExtResource("1_8fc25")
+radius = 16.0
+draw_color = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="RingDraw" type="Node2D" parent="Sprite" unique_id=1072256441]
+position = Vector2(0, 21)
+script = ExtResource("1_8fc25")
+radius = 1.0
+draw_color = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1123582449]
+shape = SubResource("CircleShape2D_du3jv")
+
+[node name="FireBullet" type="Node2D" parent="." unique_id=1297830316 node_paths=PackedStringArray("timer")]
+script = ExtResource("3_di0rt")
+bullet = ExtResource("4_qylmq")
+amount = 4
+range = 6.283185307179586
+timer = NodePath("Timer")
+metadata/_custom_type_script = "uid://664y6d38hqgk"
+
+[node name="Timer" type="Timer" parent="FireBullet" unique_id=832543977]

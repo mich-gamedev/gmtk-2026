@@ -70,7 +70,70 @@ _data = {
 &"unstick": SubResource("Animation_gnkmh")
 }
 
+[sub_resource type="Animation" id="Animation_xkryw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:draw_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StickPivot/Stick:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ow0dq"]
+resource_name = "about_to_die"
+length = 0.39999999999999997
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:draw_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.45062512, 0.45062512, 0.45062512),
+"update": 0,
+"values": [Color(0, 0, 1, 1), Color(1, 0, 0, 1), Color(0, 0, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StickPivot/Stick:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.45062512, 0.45062512, 0.45062512),
+"update": 0,
+"values": [Color(0, 0, 1, 1), Color(1, 0, 0, 1), Color(0, 0, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m4kly"]
+_data = {
+&"RESET": SubResource("Animation_xkryw"),
+&"about_to_die": SubResource("Animation_ow0dq")
+}
+
 [node name="Player" type="CharacterBody2D" unique_id=1524859842]
+collision_mask = 3
 floor_constant_speed = true
 floor_max_angle = 1.3962634
 floor_snap_length = 8.0
@@ -122,6 +185,10 @@ radius = 10.0
 draw_color = Color(0, 1, 0, 1)
 fill_color = Color(0, 1, 0, 1)
 metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="HurtAnim" type="AnimationPlayer" parent="CollisionShape2D/Sprite" unique_id=1896089956]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_m4kly")
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_coyote_timeout"]
 [connection signal="timeout" from="BufferTimer" to="." method="_buffer_timeout"]

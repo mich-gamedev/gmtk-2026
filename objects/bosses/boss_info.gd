@@ -6,6 +6,7 @@ class_name BossInfo extends Resource
 @export var rand_weight: float = 1
 @export var scene: PackedScene
 @export var count: int = 1
+@export var double_boss_count: int = 1
 
 static var infos: Array[BossInfo]
 static var info_weights: PackedFloat32Array
@@ -13,6 +14,7 @@ static var info_weights: PackedFloat32Array
 static func setup() -> void:
 	if infos.is_empty():
 		for i in DirAccess.get_directories_at("res://objects/bosses/"):
+			if i.begins_with("_"): continue
 			infos.append(load("res://objects/bosses/".path_join(i).path_join("boss.tres")))
 	if info_weights.is_empty():
 		for i in infos:

@@ -3,6 +3,7 @@ class_name Platform extends StaticBody2D
 @export var radius := 128.
 @export var default_point_count := 144
 @export var displayed_segments: Array[PlatformSegment]
+@onready var floating_platform_container: Node2D = $FloatingPlatformContainer
 
 static var node: Platform
 
@@ -23,26 +24,51 @@ func _ready() -> void:
 	_state_changed(GameLoop.state, GameLoop.state)
 
 func _select_changed(index: int) -> void:
+	print(index)
 	FishEye.impact(-.25)
-	if GameLoop.state == GameLoop.STATE_PLACE_SEGMENT:
-		displayed_segments = placed_segments.duplicate()
-		displayed_segments[index] = picked_segment
-		update()
+	match GameLoop.state:
+		GameLoop.STATE_PLACE_SEGMENT:
+			displayed_segments = placed_segments.duplicate()
+			displayed_segments[index] = picked_segment
+			update()
+		GameLoop.STATE_MAIN_MENU:
+			displayed_segments = get_empty_segments(4)
+			displayed_segments[index] = load("uid://254mbqxxvunh")
+			update()
 
 func _select_selected(index: int) -> void:
 	print("Selected")
 	match GameLoop.state:
 		GameLoop.STATE_PLACE_SEGMENT:
 			placed_segments[index] = picked_segment
-			GameLoop.state = GameLoop.STATE_SURVIVE
+			if World.node.event == World.EVENT_DOUBLE_PICK:
+				GameLoop.state = GameLoop.STATE_PICK_SEGMENT
+				World.node.event = World.EVENT_NONE
+			else:
+				GameLoop.state = GameLoop.STATE_SURVIVE
 		GameLoop.STATE_PICK_SEGMENT:
 			picked_segment = displayed_segments[index]
 			GameLoop.state = GameLoop.STATE_PLACE_SEGMENT
 
+const FLOATING_PLATFORM = preload("uid://ckvu0yycp6hfc")
 
 func update() -> void:
 	points.clear()
-	for i in default_point_count:
+	for i in floating_platform_container.get_children(): i.queue_free()
+	for segment_idx in displayed_segments.size(): # floating platforms
+		var start_angle := float(segment_idx) / displayed_segments.size() * TAU
+		var end_angle := float(segment_idx + 1) / displayed_segments.size() * TAU
+		var segment := displayed_segments[segment_idx]
+		for i: int in min(segment.platform_bottoms.size(), segment.platform_ranges.size(), segment.platform_tops.size()):
+			var inst := FLOATING_PLATFORM.instantiate() as FloatingPlatform
+			floating_platform_container.add_child(inst)
+			inst.curve_bottom = segment.platform_bottoms[i]
+			inst.curve_top = segment.platform_tops[i]
+			inst.from_angle = lerp(start_angle, end_angle, segment.platform_ranges[i].x)
+			inst.to_angle = lerp(start_angle, end_angle, segment.platform_ranges[i].y)
+			inst.update()
+
+	for i in default_point_count: # floor
 		var progress := i * (1./default_point_count)
 		var segment_idx := int(progress * displayed_segments.size())
 		var segment_start_prog := float(segment_idx) / displayed_segments.size()
@@ -62,12 +88,16 @@ func _state_changed(old: int, new: int) -> void:
 	print("State changed ", new)
 	match new:
 		GameLoop.STATE_MAIN_MENU:
-			displayed_segments = get_empty_segments(6)
+			displayed_segments = get_empty_segments(4)
 			update()
 		GameLoop.STATE_PICK_SEGMENT:
 			displayed_segments.clear()
-			for i in min(PlatformSegment.unlocked_segments.size(), 6):
-				displayed_segments.append(PlatformSegment.unlocked_segments.pick_random())
+			if Save.fetch().high_score > 0 or GameLoop.level > 1:
+				for i in placed_segments.size():
+					displayed_segments.append(PlatformSegment.unlocked_segments.pick_random())
+			else:
+				displayed_segments = get_empty_segments(placed_segments.size())
+				displayed_segments[0] = PlatformSegment.unlocked_segments.pick_random()
 			update()
 		GameLoop.STATE_PLACE_SEGMENT:
 			displayed_segments = placed_segments.duplicate()
@@ -77,7 +107,13 @@ func _state_changed(old: int, new: int) -> void:
 			displayed_segments = placed_segments.duplicate()
 			update()
 		GameLoop.STATE_RESET:
-			placed_segments = get_empty_segments(6)
+			await get_tree().process_frame
+			if World.node.event == World.EVENT_WILD_CARD:
+				placed_segments.clear()
+				for i in randi_range(3, 8):
+					placed_segments.append(PlatformSegment.unlocked_segments.pick_random())
+			else:
+				placed_segments = get_empty_segments(randi_range(3, 8))
 			update()
 
 func get_empty_segments(size: int) -> Array[PlatformSegment]:

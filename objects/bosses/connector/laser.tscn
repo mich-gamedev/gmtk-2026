@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://3so47q12h20b"]
+
+[ext_resource type="Script" uid="uid://dut12jcrwgku5" path="res://objects/bosses/connector/laser.gd" id="1_d61or"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_du3jv"]
+resource_local_to_scene = true
+b = Vector2(247, 131)
+
+[sub_resource type="Animation" id="Animation_5l63b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Laser:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Outline:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_d61or"]
+resource_name = "show"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Laser:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(7.450581e-09, 0.050000012, 0.10000001, 0.15, 0.20000002, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Outline:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o2r1l"]
+_data = {
+&"RESET": SubResource("Animation_5l63b"),
+&"show": SubResource("Animation_d61or")
+}
+
+[node name="Area2D" type="Area2D" unique_id=263594841]
+z_index = -5
+script = ExtResource("1_d61or")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2120079591]
+shape = SubResource("SegmentShape2D_du3jv")
+disabled = true
+
+[node name="Outline" type="Line2D" parent="." unique_id=1230234565]
+z_index = -1
+points = PackedVector2Array(0, 0, 247, 131)
+width = 16.0
+default_color = Color(0, 1, 0, 1)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Laser" type="Line2D" parent="." unique_id=890063004]
+points = PackedVector2Array(0, 0, 247, 131)
+width = 8.0
+default_color = Color(1, 0, 0, 1)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1822402629]
+libraries/ = SubResource("AnimationLibrary_o2r1l")
+autoplay = &"show"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

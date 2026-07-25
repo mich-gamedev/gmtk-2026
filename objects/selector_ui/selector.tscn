@@ -14,6 +14,18 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 40
 
+[sub_resource type="Gradient" id="Gradient_mfndj"]
+offsets = PackedFloat32Array(0, 0.7508929)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.80500007)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_du3jv"]
+gradient = SubResource("Gradient_mfndj")
+width = 360
+height = 360
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
 [sub_resource type="Animation" id="Animation_sqrbl"]
 length = 0.001
 tracks/0/type = "value"
@@ -159,9 +171,13 @@ script = ExtResource("1_sqrbl")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1125020103]
 show_behind_parent = true
+clip_children = 1
 color = Color(1, 1, 1, 0.6)
 polygon = PackedVector2Array(-1, -1, -58.36435, 103.46839, -124, 223, 152.51741, 234.68384, 69.831436, 107.742195, -1, -1)
 uv = PackedVector2Array(-1, -1, -58.36435, 103.46839, -124, 223, 152.51741, 234.68384, 69.831436, 107.742195, -1, -1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Polygon2D" unique_id=2128519040]
+texture = SubResource("GradientTexture2D_du3jv")
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1904775922]
 root_node = NodePath("../Polygon2D")

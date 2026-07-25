@@ -37,7 +37,7 @@ void fragment() {
 	vec4 green_color = mix(green_filter, green_filter_2, texture(green_texture, mod(3. * (SCREEN_UV) + vec2(TIME * 2., sin(TIME * .6)), 1)) * texture(green_texture_2, mod((4. * (SCREEN_UV) + vec2(TIME * -4., cos(TIME) * 2.)), 1)));
 	new_color = mix(new_color, green_color, screen.g);
 	// white
-	if (screen.r > .1 && screen.g > .1 && screen.b > .1) {
+	if (screen.r > .01 && screen.g > .01 && screen.b > .01) {
 		vec4 white_color = mix(white_filter, white_filter_2, texture(white_texture, mod(3. * (SCREEN_UV) + vec2(TIME * 2., sin(TIME * .6)), 1)) * texture(white_texture_2, mod((4. * (SCREEN_UV) + vec2(TIME * -4., cos(TIME) * 2.)), 1)));
 		new_color = mix(new_color, white_color, screen.r);
 	}

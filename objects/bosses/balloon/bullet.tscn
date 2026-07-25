@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c3dhjsmlo3nj"]
+
+[ext_resource type="Script" uid="uid://cb4j4ckfol0e3" path="res://components/2d/bullets/bullet.gd" id="1_7ookj"]
+[ext_resource type="Script" uid="uid://dq3vwv5n3jxdy" path="res://objects/bosses/balloon/bullet_sprite.gd" id="2_7ookj"]
+[ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="2_xgwhl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_du3jv"]
+radius = 6.0
+
+[node name="Bullet" type="CharacterBody2D" unique_id=1128398988]
+collision_layer = 0
+script = ExtResource("1_7ookj")
+bounces = 5
+metadata/_custom_type_script = "uid://cb4j4ckfol0e3"
+
+[node name="RingDraw" type="Node2D" parent="." unique_id=248736246]
+script = ExtResource("2_xgwhl")
+radius = 8.0
+draw_color = Color(0, 1, 0, 1)
+fill_color = Color(1, 0, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1003608525]
+script = ExtResource("2_7ookj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=773717051]
+shape = SubResource("CircleShape2D_du3jv")
+
+[connection signal="destroying" from="." to="Node2D" method="_bullet_destroying"]

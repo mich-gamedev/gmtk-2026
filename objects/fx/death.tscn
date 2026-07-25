@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://cclatmh1hxi7e"]
+
+[ext_resource type="Script" uid="uid://dd1t3jfmu22gl" path="res://objects/fx/death.gd" id="1_7rc55"]
+
+[sub_resource type="Animation" id="Animation_4fkk2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7rc55"]
+resource_name = "pop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.5),
+"transitions": PackedFloat32Array(17.148403, 0.044194173, 1),
+"update": 0,
+"values": [Vector2(1, 0.75), Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.5),
+"transitions": PackedFloat32Array(17.148403, 0.091505505, 1),
+"update": 0,
+"values": [Vector2(1, 0.75), Vector2(1, 1), Vector2(1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hcjgy"]
+_data = {
+&"RESET": SubResource("Animation_4fkk2"),
+&"pop": SubResource("Animation_7rc55")
+}
+
+[node name="Node2D" type="Node2D" unique_id=1141309539]
+z_index = 20
+script = ExtResource("1_7rc55")
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=896409114]
+offset_left = -960.0
+offset_top = -20.0
+offset_right = 960.0
+offset_bottom = 20.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=659530149]
+offset_left = -960.0
+offset_top = -12.0
+offset_right = 960.0
+offset_bottom = 12.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+color = Color(1, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=334164625]
+libraries/ = SubResource("AnimationLibrary_hcjgy")
+autoplay = &"pop"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

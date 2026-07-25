@@ -12,18 +12,22 @@ var was_on_floor: bool
 var is_jumping: bool
 var can_jump: bool
 
+var queued_up_direction: Vector2
+
 var virt_velocity: Vector2
 
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var buffer_timer: Timer = $BufferTimer
 @onready var shape: CollisionShape2D = $CollisionShape2D
+@onready var hurt_anim: AnimationPlayer = %HurtAnim
 
 func _ready() -> void:
 	node = self
 	GameLoop.state_changed.connect(_state_changed)
+	up_direction = -MainCam.cam.transform.y
 
 func _physics_process(delta: float) -> void:
-
+	hurt_anim.play(&"about_to_die" if GameLoop.hp == 1 else &"RESET")
 	#region circular movement handling
 	if is_on_floor() or is_on_wall():
 		up_direction = global_position.direction_to(Vector2.ZERO)
@@ -60,6 +64,7 @@ func _physics_process(delta: float) -> void:
 	velocity = virt_velocity.rotated(up_direction.angle() + PI/2)
 
 	move_and_slide()
+
 	virt_velocity = velocity.rotated(-(up_direction.angle() + PI/2))
 	queue_redraw()
 	shape.rotation = (get_floor_normal() if is_on_floor() else up_direction).angle() + PI/2
@@ -79,7 +84,15 @@ func _buffer_timeout() -> void:
 
 #func _draw() -> void:
 	#draw_line(Vector2.ZERO, up_direction * 64, Color.AQUAMARINE)
+const FX_DEATH = preload("uid://cclatmh1hxi7e")
 
 func _state_changed(old: int, new: int) -> void:
 	if new in [GameLoop.STATE_RESET, GameLoop.STATE_DIE]:
+		MainCam.cam.global_position = Vector2.ZERO
+		MainCam.cam.rotation = 0
+		if new == GameLoop.STATE_DIE:
+			var fx := FX_DEATH.instantiate()
+			get_tree().current_scene.add_child(fx)
+			fx.global_position = global_position
+			fx.reset_physics_interpolation()
 		queue_free()

@@ -8,4 +8,5 @@ script = ExtResource("1_swcny")
 fx_radius = 24.0
 scene = ExtResource("1_laig0")
 count = 2
+double_boss_count = 2
 metadata/_custom_type_script = "uid://dt1v12mr4rvol"

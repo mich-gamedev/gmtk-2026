@@ -114,6 +114,14 @@ enum EndOverlap {BELOW = -1, COMBINE = 0, ABOVE = 1}
 		end_outline_color = v
 		queue_redraw()
 
+@export_group("Ticks")
+@export var draw_ticks: bool:
+	set(v):
+		draw_ticks = v
+		queue_redraw()
+@export var tick_thickness: float = 2
+@export var tick_color: Color
+
 func _get_minimum_size() -> Vector2:
 	return Vector2.ONE * (radius * 2 + bar_width)
 
@@ -198,3 +206,10 @@ func _draw() -> void:
 				end_color,
 				true, -1, end_antialiased
 			)
+		if draw_ticks:
+			for i in int(value):
+				draw_line(
+					bar_center + Vector2.from_angle(lerp(start_direction, end_direction, float(i)/max_value)) * (radius - bar_width/2),
+					bar_center + Vector2.from_angle(lerp(start_direction, end_direction, float(i)/max_value)) * (radius + bar_width/2),
+					tick_color, tick_thickness
+				)

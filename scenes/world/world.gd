@@ -1,41 +1,132 @@
-extends Node2D
+class_name World extends Node2D
 
+@onready var double_boss: Sprite2D = %DoubleBoss
+@onready var double_pick: Sprite2D = %DoublePick
+@onready var double_pick_anim: AnimationPlayer = %DoublePickAnim
+@onready var wildcard: Sprite2D = %Wildcard
+@onready var wildcard_anim: AnimationPlayer = %WildcardAnim
 @onready var survive_timer: Timer = %SurviveTimer
+@onready var hp_bar: RadialProgressBar = $UI/HPBar
+@onready var heartbeat_anim: AnimationPlayer = %HeartbeatAnim
+@onready var ui: CanvasLayer = $UI
+@onready var main_menu_symbols: Sprite2D = $MainMenuSymbols
+
 const FX_SPAWN = preload("uid://1cxdqxcr7qpo")
 const PLAYER = preload("uid://b3vlb5w6ki5e0")
 
+static var node: World
+
+enum {
+	EVENT_NONE,
+	EVENT_DOUBLE_PICK,
+	EVENT_WILD_CARD,
+}
+
+var boss: BossInfo
+
+var boss_2: BossInfo
+var event: int:
+	set(v):
+		event = v
+		match v:
+			EVENT_NONE:
+				if double_pick_anim.assigned_animation == &"show": double_pick_anim.play(&"hide")
+				if wildcard_anim.assigned_animation == &"show": wildcard_anim.play(&"hide")
+			EVENT_DOUBLE_PICK:
+				if double_pick_anim.assigned_animation != &"show": double_pick_anim.play(&"show")
+				if wildcard_anim.assigned_animation == &"show": wildcard_anim.play(&"hide")
+			EVENT_WILD_CARD:
+				if double_pick_anim.assigned_animation == &"show": double_pick_anim.play(&"hide")
+				if wildcard_anim.assigned_animation != &"show": wildcard_anim.play(&"show")
+
 func _ready() -> void:
+	node = self
 	BossInfo.setup()
+	boss = BossInfo.get_random()
 	GameLoop.state_changed.connect(_state_changed)
-	_state_changed(GameLoop.state, GameLoop.state)
+	_state_changed.call_deferred(GameLoop.state, GameLoop.state)
 	randomize_colors()
+	adjust_hp()
+	await get_tree().process_frame
+	SegmentSelector.node.selected.connect(_select_selected)
+
+func _select_selected(index: int) -> void:
+	if GameLoop.state == GameLoop.STATE_MAIN_MENU:
+		match index:
+			0: #play
+				GameLoop.state = GameLoop.STATE_PICK_SEGMENT
 
 func _state_changed(old: int, new: int) -> void:
+	main_menu_symbols.hide()
 	survive_timer.stop()
 	match new:
+		GameLoop.STATE_MAIN_MENU:
+			GameLoop.reset()
+			ui.hide()
+			main_menu_symbols.show()
+			if !Save.fetch().rotate_world: main_menu_symbols.texture = load("res://assets/polar_assets/play_no_rot.svg")
 		GameLoop.STATE_SURVIVE:
+			ui.show()
+			await get_tree().create_timer(.5).timeout
 			var fx := FX_SPAWN.instantiate()
 			add_child(fx)
 			var player := PLAYER.instantiate()
 			add_child(player)
 			FishEye.impact()
 
-			await get_tree().create_timer(1).timeout
+			await get_tree().create_timer(1.5).timeout
 			survive_timer.start()
-			var boss := BossInfo.get_random()
 			var boss_fx := FX_SPAWN.instantiate() as Node2D
 			boss_fx.scale = Vector2.ONE * boss.fx_radius / 16
 			add_child(boss_fx)
-			for i in boss.count:
+			for i in boss.double_boss_count if boss_2 else boss.count:
 				var boss_node := boss.scene.instantiate()
 				add_child(boss_node)
+			if boss_2:
+				await get_tree().create_timer(.5).timeout
+				boss_fx = FX_SPAWN.instantiate() as Node2D
+				boss_fx.scale = Vector2.ONE * boss_2.fx_radius / 16
+				add_child(boss_fx)
+				for i in boss_2.double_boss_count:
+					var boss_node := boss_2.scene.instantiate()
+					add_child(boss_node)
 		GameLoop.STATE_DIE:
-			await get_tree().process_frame
-			GameLoop.state = GameLoop.STATE_PICK_SEGMENT
+			GameLoop.hp -= 1
+			adjust_hp()
+			if GameLoop.hp > 0:
+				await get_tree().create_timer(1).timeout
+				GameLoop.state = GameLoop.STATE_PICK_SEGMENT
+				if randf() < .05:
+					event = EVENT_DOUBLE_PICK
+				else:
+					event = EVENT_NONE
+			else:
+				await get_tree().create_timer(4).timeout
+				GameLoop.state = GameLoop.STATE_MAIN_MENU
 		GameLoop.STATE_RESET:
-			await get_tree().process_frame
-			GameLoop.state = GameLoop.STATE_SURVIVE
+			GameLoop.hp += randi_range(0, 2) / (1 if GameLoop.hp < 5 else 2) + (1 if GameLoop.hp < 3 else 0)
+			adjust_hp()
+			GameLoop.level += 1
+			survive_timer.wait_time += randi_range(0, 3)
+			if randf() < .2:
+				event = [EVENT_DOUBLE_PICK, EVENT_WILD_CARD].pick_random()
+			else:
+				event = EVENT_NONE
+			await get_tree().create_timer(.5).timeout
+			GameLoop.state = GameLoop.STATE_PICK_SEGMENT if event != EVENT_WILD_CARD else GameLoop.STATE_SURVIVE
 			randomize_colors()
+			boss = BossInfo.get_random()
+			if randf() < .2:
+				boss_2 = BossInfo.get_random()
+				double_boss.show()
+			else:
+				boss_2 = null
+				double_boss.hide()
+
+func adjust_hp() -> void:
+	hp_bar.max_value = max(GameLoop.hp, 5)
+	hp_bar.value = GameLoop.hp
+	heartbeat_anim.speed_scale = remap(GameLoop.hp, 5, 1, 1.25, 5)
 
 func _on_survive_timer_timeout() -> void:
 	GameLoop.state = GameLoop.STATE_RESET

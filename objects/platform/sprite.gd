@@ -3,7 +3,6 @@ extends Line2D
 var twn: Tween
 
 @onready var outline: Line2D = $Outline
-@onready var platform: Platform = $".."
 @onready var poly: CollisionPolygon2D = $"../CollisionPolygon2D"
 @onready var bg: Polygon2D = $Polygon2D
 
