@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://bfunrb6shwf7w"]
+
+[ext_resource type="Script" uid="uid://cjxo3cjqwxnrg" path="res://objects/bosses/acid_rain/acid_rain.gd" id="1_cv0xk"]
+[ext_resource type="Script" uid="uid://664y6d38hqgk" path="res://components/2d/bullets/fire_bullet.gd" id="2_rp5ty"]
+[ext_resource type="PackedScene" uid="uid://b6q4sejkiwqwb" path="res://objects/bosses/acid_rain/bullet.tscn" id="3_rp5ty"]
+[ext_resource type="Texture2D" uid="uid://b5n465onkjhkc" path="res://assets/material_symbols/circle.svg" id="3_yghip"]
+
+[sub_resource type="Curve" id="Curve_noq2t"]
+_limits = [-2.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.07699619, -2), 0.0, 0.0, 0, 0, Vector2(0.9686312, -2), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_frloa"]
+curve = SubResource("Curve_noq2t")
+
+[sub_resource type="Curve" id="Curve_hkje2"]
+_data = [Vector2(0, 0), 0.0, 7.0295706, 0, 0, Vector2(0.5009506, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -6.7669253, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_vplpx"]
+curve = SubResource("Curve_hkje2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eqbyc"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+initial_velocity_max = 64.0
+orbit_velocity_min = -2.5
+orbit_velocity_max = 2.5000002
+orbit_velocity_curve = SubResource("CurveTexture_frloa")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.45
+scale_curve = SubResource("CurveTexture_vplpx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hkje2"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+initial_velocity_max = 64.0
+orbit_velocity_min = -2.5
+orbit_velocity_max = 2.5000002
+orbit_velocity_curve = SubResource("CurveTexture_frloa")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.35
+scale_max = 0.75
+scale_curve = SubResource("CurveTexture_vplpx")
+
+[node name="Node2D" type="Node2D" unique_id=894624365]
+script = ExtResource("1_cv0xk")
+
+[node name="FireBullet" type="Node2D" parent="." unique_id=824732091 node_paths=PackedStringArray("timer")]
+script = ExtResource("2_rp5ty")
+bullet = ExtResource("3_rp5ty")
+speed = 96.0
+cooldown = 0.33
+timer = NodePath("Timer")
+metadata/_custom_type_script = "uid://664y6d38hqgk"
+
+[node name="Timer" type="Timer" parent="FireBullet" unique_id=852538182]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1295432604]
+modulate = Color(0, 1, 0, 1)
+z_index = 5
+amount = 32
+texture = ExtResource("3_yghip")
+use_fixed_seed = true
+seed = 2799928080
+process_material = SubResource("ParticleProcessMaterial_eqbyc")
+
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="." unique_id=778028501]
+modulate = Color(0, 1, 0, 1)
+z_index = 5
+amount = 32
+texture = ExtResource("3_yghip")
+use_fixed_seed = true
+seed = 4281125442
+process_material = SubResource("ParticleProcessMaterial_eqbyc")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="." unique_id=620551576]
+modulate = Color(0, 0, 1, 1)
+z_index = 5
+amount = 32
+texture = ExtResource("3_yghip")
+use_fixed_seed = true
+seed = 4281125442
+process_material = SubResource("ParticleProcessMaterial_hkje2")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="." unique_id=360137932]
+modulate = Color(1, 0, 0, 1)
+z_index = 5
+amount = 32
+texture = ExtResource("3_yghip")
+use_fixed_seed = true
+seed = 2799928080
+process_material = SubResource("ParticleProcessMaterial_hkje2")
+
+[connection signal="timeout" from="FireBullet/Timer" to="." method="_on_timer_timeout"]

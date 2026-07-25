@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BossInfo" format=3 uid="uid://c6488g0712hba"]
+
+[ext_resource type="PackedScene" uid="uid://bfunrb6shwf7w" path="res://objects/bosses/acid_rain/acid_rain.tscn" id="1_x5xae"]
+[ext_resource type="Script" uid="uid://dt1v12mr4rvol" path="res://objects/bosses/boss_info.gd" id="2_uhyu8"]
+
+[resource]
+script = ExtResource("2_uhyu8")
+scene = ExtResource("1_x5xae")
+metadata/_custom_type_script = "uid://dt1v12mr4rvol"

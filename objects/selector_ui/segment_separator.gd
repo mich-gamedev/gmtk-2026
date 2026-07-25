@@ -18,7 +18,7 @@ func _update() -> void:
 		inst.rotation = float(i)/segment_count * TAU
 
 func _state_changed(old: int, new: int) -> void:
-	if new in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT, GameLoop.STATE_MAIN_MENU]:
+	if new in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT, GameLoop.STATE_MAIN_MENU, GameLoop.STATE_CONFIG]:
 		show()
 		_update.call_deferred()
 	else:

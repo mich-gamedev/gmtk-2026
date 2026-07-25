@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BossInfo" format=3 uid="uid://dxogjriinxw0s"]
+
+[ext_resource type="Script" uid="uid://dt1v12mr4rvol" path="res://objects/bosses/boss_info.gd" id="1_6sx3p"]
+[ext_resource type="PackedScene" uid="uid://dswpmb682xi1j" path="res://objects/bosses/_wheel/wheel.tscn" id="1_heqnc"]
+
+[resource]
+script = ExtResource("1_6sx3p")
+fx_radius = 32.0
+scene = ExtResource("1_heqnc")
+metadata/_custom_type_script = "uid://dt1v12mr4rvol"

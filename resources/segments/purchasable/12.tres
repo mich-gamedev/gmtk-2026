@@ -3,19 +3,21 @@
 [ext_resource type="Script" uid="uid://6ggxugv0jet3" path="res://resources/segments/segment.gd" id="1_wsxsy"]
 
 [sub_resource type="Curve" id="Curve_0yr1r"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0]
-point_count = 1
+_limits = [-0.1, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.09090909, -0.1), 0.0, 0.0, 0, 0, Vector2(0.90909094, -0.1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+metadata/_snap_count = 11
 
 [sub_resource type="Curve" id="Curve_c6ho0"]
-_data = [Vector2(0, 0.3), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.275), 0.0, 0.0, 0, 0]
 point_count = 1
 metadata/_snap_enabled = true
 metadata/_snap_count = 40
 
 [sub_resource type="Curve" id="Curve_1irbo"]
-_data = [Vector2(0, 0.22500001), 0.0, 0.0, 0, 0]
-point_count = 1
-metadata/_snap_enabled = true
+_data = [Vector2(0, 0.29253113), 0.0, 0.8739838, 0, 0, Vector2(0.25, 0.35), 0.0, 0.0, 0, 0, Vector2(0.75, 0.35), 0.0, 0.003986296, 0, 0, Vector2(1, 0.2883817), -0.7496479, 0.0, 0, 0]
+point_count = 4
 metadata/_snap_count = 40
 
 [resource]

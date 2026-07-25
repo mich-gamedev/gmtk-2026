@@ -37,7 +37,7 @@ func _ready() -> void:
 	GameLoop.state_changed.connect(_state_changed)
 
 func _process(delta: float) -> void:
-	if GameLoop.state in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT, GameLoop.STATE_MAIN_MENU]:
+	if GameLoop.state in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT, GameLoop.STATE_MAIN_MENU, GameLoop.STATE_CONFIG]:
 		if anim.assigned_animation == &"hide":
 			anim.play(&"show")
 			if Save.fetch().rotate_world: MainCam.cam.rotation = (segment + .5)/Platform.node.displayed_segments.size() * TAU - PI/2
@@ -52,14 +52,14 @@ func _process(delta: float) -> void:
 					((segment + .5)/Platform.node.displayed_segments.size() * TAU) + PI,
 					0.1, 2, Tween.TransitionType.TRANS_CUBIC, Tween.TransitionType.TRANS_ELASTIC
 				))
-				anim.play(&"flash")
+				anim.play(&"flash", -1, (3 if GameLoop.state == GameLoop.STATE_CONFIG else 1))
 				anim.animation_finished.connect(func(_anim_name: StringName) -> void: selected.emit(segment), CONNECT_ONE_SHOT)
 	elif anim.assigned_animation != &"hide":
 		print("hiding selector")
 		anim.play(&"hide")
 
 func _state_changed(old: int, new: int) -> void:
-	if GameLoop.state in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT, GameLoop.STATE_MAIN_MENU] and anim.assigned_animation == &"flash":
+	if GameLoop.state in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT, GameLoop.STATE_MAIN_MENU, GameLoop.STATE_CONFIG] and anim.assigned_animation == &"flash":
 		anim.play(&"show")
 		if Save.fetch().rotate_world: MainCam.cam.rotation = (segment + .5)/Platform.node.displayed_segments.size() * TAU - PI/2
 		segment = segment

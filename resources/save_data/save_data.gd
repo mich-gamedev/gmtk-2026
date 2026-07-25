@@ -14,7 +14,7 @@ static var data: Save
 const PATH := "user://save.tres"
 
 static func save() -> Error:
-	return ResourceSaver.save(data, PATH)
+	return ResourceSaver.save(fetch(), PATH)
 
 static func fetch() -> Save:
 	if data: return data

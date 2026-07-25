@@ -207,7 +207,7 @@ func _draw() -> void:
 				true, -1, end_antialiased
 			)
 		if draw_ticks:
-			for i in int(value):
+			for i in int(ceil(value)):
 				draw_line(
 					bar_center + Vector2.from_angle(lerp(start_direction, end_direction, float(i)/max_value)) * (radius - bar_width/2),
 					bar_center + Vector2.from_angle(lerp(start_direction, end_direction, float(i)/max_value)) * (radius + bar_width/2),

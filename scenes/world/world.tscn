@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://dqd7882p15aom" path="res://assets/fonts/BBH_Bartle/BBHBartle-Regular.ttf" id="2_j2gmx"]
 [ext_resource type="Shader" uid="uid://d2fwplcsjx1n5" path="res://resources/shaders/polar_coords.gdshader" id="3_srmg5"]
 [ext_resource type="Shader" uid="uid://c3g6upsmgdxy" path="res://resources/shaders/main.gdshader" id="4_6m72w"]
+[ext_resource type="Texture2D" uid="uid://bi7ip1un4s2dd" path="res://assets/material_symbols/subdirectory_arrow_left.svg" id="4_rwifv"]
 [ext_resource type="Texture2D" uid="uid://c3rsee0txpa6y" path="res://assets/material_symbols/settings.svg" id="4_xq18t"]
 [ext_resource type="Texture2D" uid="uid://yqinoxphr0ob" path="res://assets/material_symbols/power.svg" id="5_x0nq1"]
 [ext_resource type="PackedScene" uid="uid://cidchh3ha8jyd" path="res://objects/selector_ui/segment_separator.tscn" id="6_bq33v"]
@@ -22,6 +23,7 @@
 [ext_resource type="Shader" uid="uid://dicg7aclg38li" path="res://resources/shaders/greyscale.gdshader" id="11_dlabj"]
 [ext_resource type="Script" uid="uid://cu2m807vcevnq" path="res://scenes/world/greyscale.gd" id="12_srmg5"]
 [ext_resource type="Texture2D" uid="uid://dqeyx5v7murmm" path="res://assets/material_symbols/heart.svg" id="12_wbwoo"]
+[ext_resource type="Texture2D" uid="uid://dv4bbpfuftrwu" path="res://assets/polar_assets/config.svg" id="12_x0nq1"]
 [ext_resource type="Texture2D" uid="uid://bdug8iob0r62i" path="res://assets/polar_assets/play.svg" id="13_tytul"]
 [ext_resource type="Texture2D" uid="uid://bqxjfoxowjut8" path="res://assets/polar_assets/double_boss.svg" id="14_umvgx"]
 
@@ -139,6 +141,71 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5o5dd"]
+resource_name = "show_back"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.050000012, 0.100000024, 0.15000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_rwifv")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Sprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Sprite:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_2x71e"]
@@ -504,6 +571,7 @@ tracks/4/keys = {
 _data = {
 &"RESET": SubResource("Animation_6m72w"),
 &"show": SubResource("Animation_v5dby"),
+&"show_back": SubResource("Animation_5o5dd"),
 &"show_config": SubResource("Animation_2x71e"),
 &"show_exit": SubResource("Animation_wnndm"),
 &"show_info": SubResource("Animation_26xou"),
@@ -865,6 +933,12 @@ material = SubResource("ShaderMaterial_tp342")
 scale = Vector2(0.36499998, 0.36499998)
 texture = ExtResource("13_tytul")
 
+[node name="ConfigSymbols" type="Sprite2D" parent="." unique_id=1012569661]
+visible = false
+material = SubResource("ShaderMaterial_tp342")
+scale = Vector2(0.36499998, 0.36499998)
+texture = ExtResource("12_x0nq1")
+
 [node name="UI" type="CanvasLayer" parent="." unique_id=421221447]
 scale = Vector2(0.952, 0.952)
 transform = Transform2D(0.952, 0, 0, 0.952, 0, 0)
@@ -1082,5 +1156,103 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("12_srmg5")
+
+[node name="BossWarning" type="Range" parent="." unique_id=1603050690]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = false
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+oversampling_with_scale = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+custom_minimum_size = Vector2(0, 0)
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
+layout_mode = 3
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -19.0
+offset_top = -19.0
+offset_right = 19.0
+offset_bottom = 19.0
+grow_horizontal = 1
+grow_vertical = 1
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 0
+focus_behavior_recursive = 0
+mouse_filter = 0
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+theme = null
+theme_type_variation = &""
+min_value = 0.0
+max_value = 8.0
+step = 0.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+allow_greater = false
+allow_lesser = false
+script = ExtResource("11_bt7bg")
+bar_width = 6.0
+bar_color = Color(1, 0, 0, 1)
+draw_ticks = true
+tick_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://cctcdwc14tml2"
 
 [connection signal="timeout" from="SurviveTimer" to="." method="_on_survive_timer_timeout"]

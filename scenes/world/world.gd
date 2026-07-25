@@ -10,6 +10,8 @@ class_name World extends Node2D
 @onready var heartbeat_anim: AnimationPlayer = %HeartbeatAnim
 @onready var ui: CanvasLayer = $UI
 @onready var main_menu_symbols: Sprite2D = $MainMenuSymbols
+@onready var config_symbols: Sprite2D = $ConfigSymbols
+@onready var boss_warning: RadialProgressBar = %BossWarning
 
 const FX_SPAWN = preload("uid://1cxdqxcr7qpo")
 const PLAYER = preload("uid://b3vlb5w6ki5e0")
@@ -25,6 +27,7 @@ enum {
 var boss: BossInfo
 
 var boss_2: BossInfo
+
 var event: int:
 	set(v):
 		event = v
@@ -51,21 +54,53 @@ func _ready() -> void:
 	SegmentSelector.node.selected.connect(_select_selected)
 
 func _select_selected(index: int) -> void:
-	if GameLoop.state == GameLoop.STATE_MAIN_MENU:
-		match index:
-			0: #play
-				GameLoop.state = GameLoop.STATE_PICK_SEGMENT
+	match GameLoop.state:
+		GameLoop.STATE_CONFIG:
+			match index:
+				0: # music
+					Save.fetch().vol_music = wrapf(Save.fetch().vol_music + .25, 0, 1.25)
+				1: # sfx
+					Save.fetch().vol_sfx = wrapf(Save.fetch().vol_sfx + .25, 0, 1.25)
+				2: # fullscreen
+					Save.fetch().fullscreen = !Save.fetch().fullscreen
+				3: # vsync
+					Save.fetch().vsync = !Save.fetch().vsync
+				4: # rotate
+					Save.fetch().rotate_world = !Save.fetch().rotate_world
+					if !Save.fetch().fullscreen:
+						MainCam.cam.rotation = 0
+				5: # back
+					GameLoop.state = GameLoop.STATE_MAIN_MENU
+		GameLoop.STATE_MAIN_MENU:
+			match index:
+				0: #play
+					GameLoop.state = GameLoop.STATE_PICK_SEGMENT
+				1: #config
+					GameLoop.state = GameLoop.STATE_CONFIG
+				2: #info
+					pass
+				3: #exit
+					get_tree().quit()
+
+var twn_warn: Tween
+
 
 func _state_changed(old: int, new: int) -> void:
+	config_symbols.hide()
 	main_menu_symbols.hide()
 	survive_timer.stop()
 	match new:
 		GameLoop.STATE_MAIN_MENU:
 			GameLoop.reset()
+			Save.save()
 			ui.hide()
 			main_menu_symbols.show()
 			if !Save.fetch().rotate_world: main_menu_symbols.texture = load("res://assets/polar_assets/play_no_rot.svg")
+		GameLoop.STATE_CONFIG:
+			config_symbols.show()
+			if !Save.fetch().rotate_world: config_symbols.texture = load("res://assets/polar_assets/config_no_rot.svg")
 		GameLoop.STATE_SURVIVE:
+			print(boss.resource_path)
 			ui.show()
 			await get_tree().create_timer(.5).timeout
 			var fx := FX_SPAWN.instantiate()
@@ -73,12 +108,17 @@ func _state_changed(old: int, new: int) -> void:
 			var player := PLAYER.instantiate()
 			add_child(player)
 			FishEye.impact()
+			boss_warning.show()
+			twn_warn = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+			twn_warn.tween_property(boss_warning, ^"value", 8, 1.5)
 
 			await get_tree().create_timer(1.5).timeout
 			survive_timer.start()
 			var boss_fx := FX_SPAWN.instantiate() as Node2D
 			boss_fx.scale = Vector2.ONE * boss.fx_radius / 16
 			add_child(boss_fx)
+			boss_warning.hide()
+			boss_warning.value = 0
 			for i in boss.double_boss_count if boss_2 else boss.count:
 				var boss_node := boss.scene.instantiate()
 				add_child(boss_node)
@@ -101,6 +141,8 @@ func _state_changed(old: int, new: int) -> void:
 				else:
 					event = EVENT_NONE
 			else:
+				if GameLoop.level > Save.fetch().high_score:
+					Save.fetch().high_score = GameLoop.level
 				await get_tree().create_timer(4).timeout
 				GameLoop.state = GameLoop.STATE_MAIN_MENU
 		GameLoop.STATE_RESET:

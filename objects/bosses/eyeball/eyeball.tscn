@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_gy4cg"]
 radius = 18.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1793570480]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1793570480 groups=["boss"]]
 collision_layer = 0
 script = ExtResource("1_au58l")
 

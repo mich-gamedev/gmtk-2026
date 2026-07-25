@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://1clvba3bqr38" path="res://objects/platform/floating_platform.gd" id="1_i3qx6"]
 
 [node name="StaticBody2D" type="StaticBody2D" unique_id=1601131680]
+collision_layer = 5
 script = ExtResource("1_i3qx6")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=981231636]

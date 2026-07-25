@@ -1,0 +1,149 @@
+[gd_scene format=3 uid="uid://dswpmb682xi1j"]
+
+[ext_resource type="Script" uid="uid://c1wwf0npcrrm0" path="res://objects/bosses/_wheel/wheel.gd" id="1_l8xw4"]
+[ext_resource type="Shader" uid="uid://c14bimc4lt0fa" path="res://resources/shaders/polygon_wave_2.gdshader" id="1_q0iql"]
+[ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="2_l8xw4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_du3jv"]
+shader = ExtResource("1_q0iql")
+shader_parameter/speed = 40.0
+shader_parameter/strength = Vector2(8, 1)
+shader_parameter/vertex_strength = 1.0
+shader_parameter/jitter_amount = 0.03999999910592
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l8xw4"]
+radius = 32.01562
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1022272043]
+collision_layer = 0
+floor_stop_on_slope = false
+floor_constant_speed = true
+floor_block_on_wall = false
+floor_max_angle = 1.3962634
+script = ExtResource("1_l8xw4")
+
+[node name="Dust" type="Polygon2D" parent="." unique_id=2072996983]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_du3jv")
+position = Vector2(0, -32)
+polygon = PackedVector2Array(-2.903592, 28.072372, -36.90359, 4.0723724, -22.903591, 18.072372, -60.90359, 13.072372, -30.903591, 22.072372, -39.90359, 24.072372, -28.903591, 26.072372, -57.90359, 28.072372)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=73364375]
+position = Vector2(0, -32)
+rotation = -1.5707964
+shape = SubResource("CircleShape2D_l8xw4")
+
+[node name="ScalePivot" type="Node2D" parent="." unique_id=643504179]
+unique_name_in_owner = true
+
+[node name="Sprite" type="Node2D" parent="ScalePivot" unique_id=811550160]
+unique_name_in_owner = true
+position = Vector2(0, -32)
+
+[node name="RingDraw2" type="Node2D" parent="ScalePivot/Sprite" unique_id=459789961]
+script = ExtResource("2_l8xw4")
+width = 16.0
+draw_color = Color(0, 1, 0, 1)
+fill_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="RingDraw" type="Node2D" parent="ScalePivot/Sprite" unique_id=1147522236]
+script = ExtResource("2_l8xw4")
+width = 8.0
+draw_color = Color(1, 0, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="Bevek" type="Node2D" parent="ScalePivot/Sprite" unique_id=1275917401]
+
+[node name="Line2D" type="Line2D" parent="ScalePivot/Sprite/Bevek" unique_id=1243175910]
+points = PackedVector2Array(-2, 28, 2, 20)
+width = 2.0
+default_color = Color(0, 1, 0, 1)
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="Bevek2" type="Node2D" parent="ScalePivot/Sprite" unique_id=72949825]
+rotation = 0.7853982
+
+[node name="Line2D" type="Line2D" parent="ScalePivot/Sprite/Bevek2" unique_id=2112014768]
+points = PackedVector2Array(-2, 28, 2, 20)
+width = 2.0
+default_color = Color(0, 1, 0, 1)
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="Bevek3" type="Node2D" parent="ScalePivot/Sprite" unique_id=1531243362]
+rotation = 1.5707964
+
+[node name="Line2D" type="Line2D" parent="ScalePivot/Sprite/Bevek3" unique_id=1120127096]
+points = PackedVector2Array(-2, 28, 2, 20)
+width = 2.0
+default_color = Color(0, 1, 0, 1)
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="Bevek4" type="Node2D" parent="ScalePivot/Sprite" unique_id=1559993930]
+rotation = 2.3561945
+
+[node name="Line2D" type="Line2D" parent="ScalePivot/Sprite/Bevek4" unique_id=862484529]
+points = PackedVector2Array(-2, 28, 2, 20)
+width = 2.0
+default_color = Color(0, 1, 0, 1)
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="Bevek5" type="Node2D" parent="ScalePivot/Sprite" unique_id=1204068451]
+rotation = 3.1415927
+
+[node name="Line2D" type="Line2D" parent="ScalePivot/Sprite/Bevek5" unique_id=1196284834]
+points = PackedVector2Array(-2, 28, 2, 20)
+width = 2.0
+default_color = Color(0, 1, 0, 1)
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="Bevek6" type="Node2D" parent="ScalePivot/Sprite" unique_id=1354693470]
+rotation = 3.9269907
+
+[node name="Line2D" type="Line2D" parent="ScalePivot/Sprite/Bevek6" unique_id=1230542936]
+points = PackedVector2Array(-2, 28, 2, 20)
+width = 2.0
+default_color = Color(0, 1, 0, 1)
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="Bevek7" type="Node2D" parent="ScalePivot/Sprite" unique_id=1843647717]
+rotation = 4.712389
+
+[node name="Line2D" type="Line2D" parent="ScalePivot/Sprite/Bevek7" unique_id=1518773747]
+points = PackedVector2Array(-2, 28, 2, 20)
+width = 2.0
+default_color = Color(0, 1, 0, 1)
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="Bevek8" type="Node2D" parent="ScalePivot/Sprite" unique_id=1111637331]
+rotation = 5.497787
+
+[node name="Line2D" type="Line2D" parent="ScalePivot/Sprite/Bevek8" unique_id=900766094]
+points = PackedVector2Array(-2, 28, 2, 20)
+width = 2.0
+default_color = Color(0, 1, 0, 1)
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="IdleTimer" type="Timer" parent="." unique_id=1090694483]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="SwapTimer" type="Timer" parent="." unique_id=1919886764]
+unique_name_in_owner = true
+wait_time = 0.15
+one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=699672323]
+position = Vector2(0, -32)
+target_position = Vector2(0, 34)
+
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="SwapTimer" to="." method="_on_idle_timer_timeout"]

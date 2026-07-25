@@ -35,6 +35,10 @@ func _select_changed(index: int) -> void:
 			displayed_segments = get_empty_segments(4)
 			displayed_segments[index] = load("uid://254mbqxxvunh")
 			update()
+		GameLoop.STATE_MAIN_MENU:
+			displayed_segments = get_empty_segments(5)
+			displayed_segments[index] = load("uid://254mbqxxvunh")
+			update()
 
 func _select_selected(index: int) -> void:
 	print("Selected")
@@ -49,6 +53,8 @@ func _select_selected(index: int) -> void:
 		GameLoop.STATE_PICK_SEGMENT:
 			picked_segment = displayed_segments[index]
 			GameLoop.state = GameLoop.STATE_PLACE_SEGMENT
+		GameLoop.STATE_CONFIG:
+			SegmentSelector.node.anim.play(&"show")
 
 const FLOATING_PLATFORM = preload("uid://ckvu0yycp6hfc")
 
@@ -85,14 +91,20 @@ func update() -> void:
 		#draw_arc(Vector2.ZERO, radius * .5, i * TAU / displayed_segments.size(), (i + 1) * TAU / displayed_segments.size(), 72, Color(randf(), randf(), randf()), 4)
 
 func _state_changed(old: int, new: int) -> void:
+	SegmentSelector.node.segment = SegmentSelector.node.segment
 	print("State changed ", new)
 	match new:
 		GameLoop.STATE_MAIN_MENU:
+			placed_segments = get_empty_segments(randi_range(3, 8))
 			displayed_segments = get_empty_segments(4)
 			update()
+		GameLoop.STATE_CONFIG:
+			displayed_segments = get_empty_segments(6)
+			update()
+			SegmentSelector.node.segment = 0
 		GameLoop.STATE_PICK_SEGMENT:
 			displayed_segments.clear()
-			if Save.fetch().high_score > 0 or GameLoop.level > 1:
+			if Save.fetch().high_score > 0 or GameLoop.level > 1 or GameLoop.hp != 5:
 				for i in placed_segments.size():
 					displayed_segments.append(PlatformSegment.unlocked_segments.pick_random())
 			else:

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BossInfo" format=3 uid="uid://bu68yrjok8vsv"]
+
+[ext_resource type="Script" uid="uid://dt1v12mr4rvol" path="res://objects/bosses/boss_info.gd" id="1_7ytbd"]
+[ext_resource type="PackedScene" uid="uid://cqpdcqo3sad48" path="res://objects/bosses/drone/drone.tscn" id="1_o83sl"]
+
+[resource]
+script = ExtResource("1_7ytbd")
+fx_radius = 32.0
+scene = ExtResource("1_o83sl")
+metadata/_custom_type_script = "uid://dt1v12mr4rvol"

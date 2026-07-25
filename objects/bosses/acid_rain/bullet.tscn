@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://b6q4sejkiwqwb"]
+
+[ext_resource type="Script" uid="uid://dl7sjjokoa7td" path="res://objects/bosses/acid_rain/bullet.gd" id="1_jlgnt"]
+[ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="2_4p4h6"]
+[ext_resource type="Script" uid="uid://dq3vwv5n3jxdy" path="res://objects/bosses/balloon/bullet_sprite.gd" id="3_56j1i"]
+
+[sub_resource type="Gradient" id="Gradient_8as6k"]
+offsets = PackedFloat32Array(0.48981482, 1)
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jlgnt"]
+gradient = SubResource("Gradient_8as6k")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+repeat = 1
+
+[sub_resource type="Animation" id="Animation_il8rx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_5e3dg"]
+resource_name = "warn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.6372803, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_px3y1"]
+_data = {
+&"RESET": SubResource("Animation_il8rx"),
+&"warn": SubResource("Animation_5e3dg")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_du3jv"]
+radius = 6.0
+
+[node name="Bullet" type="CharacterBody2D" unique_id=1128398988]
+collision_layer = 0
+script = ExtResource("1_jlgnt")
+bounces = 1
+bounce_ratio = 0.05
+metadata/_custom_type_script = "uid://cb4j4ckfol0e3"
+
+[node name="WarningSprite" type="Sprite2D" parent="." unique_id=1765816989]
+scale = Vector2(1e-05, 1e-05)
+texture = SubResource("GradientTexture2D_jlgnt")
+
+[node name="Warning" type="AnimationPlayer" parent="WarningSprite" unique_id=2098933932]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_px3y1")
+
+[node name="RingDraw" type="Node2D" parent="." unique_id=248736246]
+script = ExtResource("2_4p4h6")
+radius = 8.0
+draw_color = Color(0, 1, 0, 1)
+fill_color = Color(1, 0, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1003608525]
+script = ExtResource("3_56j1i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=773717051]
+shape = SubResource("CircleShape2D_du3jv")
+
+[connection signal="bounced" from="." to="Node2D" method="_on_bullet_bounced"]
+[connection signal="destroying" from="." to="Node2D" method="_bullet_destroying"]

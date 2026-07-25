@@ -47,6 +47,10 @@ folder_colors={
 "res://scenes/": "teal"
 }
 
+[global_group]
+
+boss=""
+
 [gui]
 
 common/snap_controls_to_pixels=false

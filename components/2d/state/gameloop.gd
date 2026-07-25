@@ -8,6 +8,7 @@ enum {
 	STATE_SHOP,
 	STATE_RESET,
 	STATE_DIE,
+	STATE_CONFIG,
 }
 
 var state := STATE_MAIN_MENU:

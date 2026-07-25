@@ -1,0 +1,343 @@
+[gd_scene format=3 uid="uid://cqpdcqo3sad48"]
+
+[ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="1_0gp4v"]
+[ext_resource type="Script" uid="uid://6l8auhdjnjpj" path="res://objects/bosses/drone/drone.gd" id="1_8as6k"]
+[ext_resource type="Script" uid="uid://cjmmhbp1b5312" path="res://addons/StyleboxFancy/StyleBorder.gd" id="2_ywnna"]
+[ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="3_8as6k"]
+[ext_resource type="Script" uid="uid://664y6d38hqgk" path="res://components/2d/bullets/fire_bullet.gd" id="4_5i2py"]
+[ext_resource type="PackedScene" uid="uid://dkgtunsn782se" path="res://objects/bosses/drone/bullet.tscn" id="6_5i2py"]
+
+[sub_resource type="Gradient" id="Gradient_8as6k"]
+offsets = PackedFloat32Array(0.48981482, 1)
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8mt81"]
+gradient = SubResource("Gradient_8as6k")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+repeat = 1
+
+[sub_resource type="Animation" id="Animation_5i2py"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_n1pp0"]
+resource_name = "warn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.73204285, 1),
+"update": 0,
+"values": [Vector2(0.175, 0.175), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ksw6v"]
+_data = {
+&"RESET": SubResource("Animation_5i2py"),
+&"warn": SubResource("Animation_n1pp0")
+}
+
+[sub_resource type="Gradient" id="Gradient_n1pp0"]
+offsets = PackedFloat32Array(0.5, 1)
+colors = PackedColorArray(0, 0, 1, 0, 0, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_du3jv"]
+gradient = SubResource("Gradient_n1pp0")
+fill = 3
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Animation" id="Animation_ksw6v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_fifeq"]
+resource_name = "spin"
+length = 0.1
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.7853981633974483, -0.7853981633974483]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4axyw"]
+_data = {
+&"RESET": SubResource("Animation_ksw6v"),
+&"spin": SubResource("Animation_fifeq")
+}
+
+[sub_resource type="Resource" id="Resource_8mt81"]
+script = ExtResource("2_ywnna")
+color = Color(0, 1, 0, 1)
+width_left = 4
+width_top = 4
+width_right = 4
+width_bottom = 4
+metadata/_custom_type_script = "uid://cjmmhbp1b5312"
+
+[sub_resource type="StyleBox" id="StyleBox_du3jv"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("3_8as6k")
+color = Color(1, 0, 0, 1)
+borders = Array[ExtResource("2_ywnna")]([SubResource("Resource_8mt81")])
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_du3jv"]
+radius = 14.0
+
+[sub_resource type="Animation" id="Animation_8as6k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_4axyw"]
+resource_name = "turn"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-1.3195077, 1),
+"update": 0,
+"values": [0.0, 6.283185307179586]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sgkp5"]
+_data = {
+&"RESET": SubResource("Animation_8as6k"),
+&"turn": SubResource("Animation_4axyw")
+}
+
+[node name="Node2D" type="CharacterBody2D" unique_id=393180356 groups=["boss"]]
+z_index = 5
+collision_layer = 0
+script = ExtResource("1_8as6k")
+
+[node name="WarningSprite" type="Sprite2D" parent="." unique_id=1134313141]
+scale = Vector2(1e-05, 1e-05)
+texture = SubResource("GradientTexture2D_8mt81")
+
+[node name="Warning" type="AnimationPlayer" parent="WarningSprite" unique_id=405081962]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_ksw6v")
+
+[node name="Sprite" type="Node2D" parent="." unique_id=791708221]
+
+[node name="RingDraw5" type="Node2D" parent="Sprite" unique_id=2027168645]
+position = Vector2(-12, -12)
+script = ExtResource("1_0gp4v")
+width = 0.0
+radius = 12.0
+fill_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="RingDraw6" type="Node2D" parent="Sprite" unique_id=622443570]
+position = Vector2(12, -12)
+script = ExtResource("1_0gp4v")
+width = 0.0
+radius = 12.0
+fill_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="RingDraw7" type="Node2D" parent="Sprite" unique_id=1489244216]
+position = Vector2(12, 12)
+script = ExtResource("1_0gp4v")
+width = 0.0
+radius = 12.0
+fill_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="RingDraw8" type="Node2D" parent="Sprite" unique_id=1673698999]
+position = Vector2(-12, 12)
+script = ExtResource("1_0gp4v")
+width = 0.0
+radius = 12.0
+fill_color = Color(0, 1, 0, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="RingDraw" type="Node2D" parent="Sprite" unique_id=53582262]
+position = Vector2(-12, -12)
+script = ExtResource("1_0gp4v")
+radius = 6.0
+draw_color = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite/RingDraw" unique_id=1782564054]
+show_behind_parent = true
+scale = Vector2(0.135, 0.135)
+texture = SubResource("GradientTexture2D_du3jv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite/RingDraw" unique_id=433612084]
+show_behind_parent = true
+rotation = -3.1415927
+scale = Vector2(0.135, 0.135)
+texture = SubResource("GradientTexture2D_du3jv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite/RingDraw" unique_id=1852860643]
+libraries/ = SubResource("AnimationLibrary_4axyw")
+autoplay = &"spin"
+
+[node name="RingDraw2" type="Node2D" parent="Sprite" unique_id=440889039]
+position = Vector2(12, -12)
+script = ExtResource("1_0gp4v")
+radius = 6.0
+draw_color = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite/RingDraw2" unique_id=1669614037]
+show_behind_parent = true
+scale = Vector2(0.135, 0.135)
+texture = SubResource("GradientTexture2D_du3jv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite/RingDraw2" unique_id=722057032]
+show_behind_parent = true
+rotation = -3.1415927
+scale = Vector2(0.135, 0.135)
+texture = SubResource("GradientTexture2D_du3jv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite/RingDraw2" unique_id=486283642]
+libraries/ = SubResource("AnimationLibrary_4axyw")
+autoplay = &"spin"
+
+[node name="RingDraw3" type="Node2D" parent="Sprite" unique_id=1190706164]
+position = Vector2(-12, 12)
+script = ExtResource("1_0gp4v")
+radius = 6.0
+draw_color = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite/RingDraw3" unique_id=1346429718]
+show_behind_parent = true
+scale = Vector2(0.135, 0.135)
+texture = SubResource("GradientTexture2D_du3jv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite/RingDraw3" unique_id=1055457928]
+show_behind_parent = true
+rotation = -3.1415927
+scale = Vector2(0.135, 0.135)
+texture = SubResource("GradientTexture2D_du3jv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite/RingDraw3" unique_id=1495660660]
+libraries/ = SubResource("AnimationLibrary_4axyw")
+autoplay = &"spin"
+
+[node name="RingDraw4" type="Node2D" parent="Sprite" unique_id=1725654759]
+position = Vector2(12, 12)
+script = ExtResource("1_0gp4v")
+radius = 6.0
+draw_color = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://bxm5rpt45kanq"
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite/RingDraw4" unique_id=979731205]
+show_behind_parent = true
+scale = Vector2(0.135, 0.135)
+texture = SubResource("GradientTexture2D_du3jv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite/RingDraw4" unique_id=261393560]
+show_behind_parent = true
+rotation = -3.1415927
+scale = Vector2(0.135, 0.135)
+texture = SubResource("GradientTexture2D_du3jv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite/RingDraw4" unique_id=650825475]
+libraries/ = SubResource("AnimationLibrary_4axyw")
+autoplay = &"spin"
+
+[node name="Panel" type="Panel" parent="Sprite" unique_id=747024135]
+offset_left = -11.0
+offset_top = -13.0
+offset_right = 11.0
+offset_bottom = 13.0
+theme_override_styles/panel = SubResource("StyleBox_du3jv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=604669171]
+shape = SubResource("CircleShape2D_du3jv")
+
+[node name="FireBullet" type="Node2D" parent="." unique_id=504055836 node_paths=PackedStringArray("timer")]
+script = ExtResource("4_5i2py")
+bullet = ExtResource("6_5i2py")
+speed = 360.0
+cooldown = 0.1
+timer = NodePath("Timer")
+metadata/_custom_type_script = "uid://664y6d38hqgk"
+
+[node name="Timer" type="Timer" parent="FireBullet" unique_id=323106020]
+
+[node name="FireTimer" type="Timer" parent="." unique_id=138700986]
+one_shot = true
+
+[node name="LOSCheck" type="RayCast2D" parent="." unique_id=1521615416]
+collision_mask = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1483831826]
+libraries/ = SubResource("AnimationLibrary_sgkp5")
+autoplay = &"turn"
+speed_scale = 0.05
+
+[connection signal="bullet_fired" from="FireBullet" to="." method="_on_fire_bullet_bullet_fired"]
+[connection signal="timeout" from="FireBullet/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

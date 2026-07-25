@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Bullet
 
 @export var bounces: int
+@export var bounce_ratio: float = 1
 
 @onready var bounces_left = bounces
 
@@ -19,7 +20,7 @@ func _physics_process(delta: float) -> void:
 		bounced.emit()
 		if bounces_left:
 			bounces_left -= 1
-			velocity = velocity.bounce(coll_info.get_normal())
+			velocity = velocity.bounce(coll_info.get_normal()) * bounce_ratio
 		else:
 			destroying.emit()
 			queue_free()

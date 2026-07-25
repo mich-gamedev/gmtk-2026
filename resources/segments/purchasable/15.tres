@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="PlatformSegment" format=3 uid="uid://bl0gq5jkbsfy1"]
+
+[ext_resource type="Script" uid="uid://6ggxugv0jet3" path="res://resources/segments/segment.gd" id="1_i0y5c"]
+
+[sub_resource type="Curve" id="Curve_btjha"]
+
+[sub_resource type="Curve" id="Curve_2cey3"]
+_data = [Vector2(0, 0.25), 0.0, 0.0, 0, 0]
+point_count = 1
+metadata/_snap_enabled = true
+metadata/_snap_count = 40
+
+[sub_resource type="Curve" id="Curve_i0y5c"]
+_data = [Vector2(0, 0.25), 0.0, 0.0, 0, 0]
+point_count = 1
+metadata/_snap_enabled = true
+metadata/_snap_count = 40
+
+[sub_resource type="Curve" id="Curve_o1xxc"]
+_data = [Vector2(0, 0.275), 0.0, 0.0, 0, 0]
+point_count = 1
+metadata/_snap_enabled = true
+metadata/_snap_count = 40
+
+[sub_resource type="Curve" id="Curve_btlxu"]
+_data = [Vector2(0, 0.275), 0.0, 0.0, 0, 0]
+point_count = 1
+metadata/_snap_enabled = true
+metadata/_snap_count = 40
+
+[resource]
+script = ExtResource("1_i0y5c")
+floor = SubResource("Curve_btjha")
+platform_bottoms = Array[Curve]([SubResource("Curve_2cey3"), SubResource("Curve_i0y5c")])
+platform_tops = Array[Curve]([SubResource("Curve_o1xxc"), SubResource("Curve_btlxu")])
+platform_ranges = PackedVector2Array(0.1, 0.3, 0.7, 0.9)
+metadata/_custom_type_script = "uid://6ggxugv0jet3"
