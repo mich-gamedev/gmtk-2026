@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bh015al7tilvn"]
+
+[ext_resource type="AudioStream" uid="uid://dd3b4ehrokjni" path="res://assets/sfx/pop-01.wav" id="1_o5l5g"]
+[ext_resource type="AudioStream" uid="uid://cgn006iw6mkvx" path="res://assets/sfx/pop-02.wav" id="2_0gc2c"]
+[ext_resource type="AudioStream" uid="uid://bmxmv6qnm11m3" path="res://assets/sfx/pop-03.wav" id="3_epvmm"]
+[ext_resource type="AudioStream" uid="uid://dlf1x8rsr6nwt" path="res://assets/sfx/pop-04.wav" id="4_d7ems"]
+[ext_resource type="AudioStream" uid="uid://bwdo33tcn6gdn" path="res://assets/sfx/pop-05.wav" id="5_gymtg"]
+[ext_resource type="Script" uid="uid://cwo48rws6dh3e" path="res://objects/bosses/balloon/sfx/free_on_finish.gd" id="6_ing8v"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gnyh2"]
+random_volume_offset_db = 2.0
+streams_count = 5
+stream_0/stream = ExtResource("1_o5l5g")
+stream_1/stream = ExtResource("2_0gc2c")
+stream_2/stream = ExtResource("3_epvmm")
+stream_3/stream = ExtResource("4_d7ems")
+stream_4/stream = ExtResource("5_gymtg")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" unique_id=1224849649]
+stream = SubResource("AudioStreamRandomizer_gnyh2")
+volume_db = -6.0
+autoplay = true
+max_distance = 360.0
+attenuation = 0.61557215
+bus = &"SFXWorld"
+
+[node name="SFXFreeOnFinish" type="Node" parent="." unique_id=1580211388 node_paths=PackedStringArray("sfx", "freed_node")]
+script = ExtResource("6_ing8v")
+sfx = NodePath("..")
+freed_node = NodePath("..")
+metadata/_custom_type_script = "uid://cwo48rws6dh3e"

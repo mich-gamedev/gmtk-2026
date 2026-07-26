@@ -2,6 +2,8 @@ class_name SegmentSelector extends Line2D
 
 @onready var bg: Polygon2D = $Polygon2D
 @onready var anim: AnimationPlayer = $Anim
+@onready var sfx_click: AudioStreamPlayer = %SFXClick
+@onready var sfx_swipe: AudioStreamPlayer = %SFXSwipe
 
 var twn: Tween
 
@@ -42,9 +44,14 @@ func _process(delta: float) -> void:
 			anim.play(&"show")
 			if Save.fetch().rotate_world: MainCam.cam.rotation = (segment + .5)/Platform.node.displayed_segments.size() * TAU - PI/2
 		if anim.assigned_animation != &"flash":
-			if Input.is_action_just_pressed(&"walk_left"): segment += 1
-			if Input.is_action_just_pressed(&"walk_right"): segment -= 1
+			if Input.is_action_just_pressed(&"walk_left"): 
+				sfx_swipe.play()
+				segment += 1
+			if Input.is_action_just_pressed(&"walk_right"): 
+				sfx_swipe.play()
+				segment -= 1
 			if Input.is_action_just_pressed(&"jump"):
+				sfx_click.play()
 				if GameLoop.state == GameLoop.STATE_PICK_SEGMENT:
 					FishEye.impact(.375)
 				MainCam.add_cam_offsetter(CameraImpulse.new(
@@ -59,6 +66,7 @@ func _process(delta: float) -> void:
 		anim.play(&"hide")
 
 func _state_changed(old: int, new: int) -> void:
+	
 	if GameLoop.state in [GameLoop.STATE_PICK_SEGMENT, GameLoop.STATE_PLACE_SEGMENT, GameLoop.STATE_MAIN_MENU, GameLoop.STATE_CONFIG] and anim.assigned_animation == &"flash":
 		anim.play(&"show")
 		if Save.fetch().rotate_world: MainCam.cam.rotation = (segment + .5)/Platform.node.displayed_segments.size() * TAU - PI/2

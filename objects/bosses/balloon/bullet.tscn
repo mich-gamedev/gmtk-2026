@@ -3,9 +3,16 @@
 [ext_resource type="Script" uid="uid://cb4j4ckfol0e3" path="res://components/2d/bullets/bullet.gd" id="1_7ookj"]
 [ext_resource type="Script" uid="uid://dq3vwv5n3jxdy" path="res://objects/bosses/balloon/bullet_sprite.gd" id="2_7ookj"]
 [ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="2_xgwhl"]
+[ext_resource type="AudioStream" uid="uid://dgv8708hhuaj" path="res://objects/player/sfx/land_2.mp3" id="4_1kueh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_du3jv"]
 radius = 6.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1kueh"]
+random_pitch = 1.122462
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("4_1kueh")
 
 [node name="Bullet" type="CharacterBody2D" unique_id=1128398988 groups=["boss"]]
 collision_layer = 0
@@ -25,6 +32,13 @@ script = ExtResource("2_7ookj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=773717051]
 shape = SubResource("CircleShape2D_du3jv")
+
+[node name="SFXRicochet" type="AudioStreamPlayer2D" parent="." unique_id=2112611327]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_1kueh")
+volume_db = -6.0
+max_distance = 120.0
+max_polyphony = 2
 
 [connection signal="bounced" from="." to="Node2D" method="_on_bullet_bounced"]
 [connection signal="destroying" from="." to="Node2D" method="_bullet_destroying"]

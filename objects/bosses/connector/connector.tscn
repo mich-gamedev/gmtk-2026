@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://cjmmhbp1b5312" path="res://addons/StyleboxFancy/StyleBorder.gd" id="1_whn1e"]
 [ext_resource type="Script" uid="uid://bkl6g25jwb47h" path="res://addons/StyleboxFancy/StyleBoxFancy.gd" id="2_ru8t5"]
 [ext_resource type="Texture2D" uid="uid://cm10uqcs8m47u" path="res://assets/material_symbols/electric_bolt.svg" id="3_4ihm7"]
+[ext_resource type="AudioStream" uid="uid://cla3inmta5gmc" path="res://objects/bosses/drone/sfx/hit1.ogg" id="5_4yvnd"]
+[ext_resource type="AudioStream" uid="uid://bqoenqcyl60ig" path="res://objects/bosses/drone/sfx/hit2.ogg" id="6_v4ja2"]
+[ext_resource type="AudioStream" uid="uid://q6hj1slhdqfm" path="res://objects/bosses/drone/sfx/hit3.mp3" id="7_p0sv2"]
 
 [sub_resource type="Resource" id="Resource_kqngd"]
 script = ExtResource("1_whn1e")
@@ -43,6 +46,15 @@ metadata/_custom_type_script = "uid://bkl6g25jwb47h"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_du3jv"]
 size = Vector2(32, 32)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fvlyn"]
+playback_mode = 1
+streams_count = 3
+stream_0/stream = ExtResource("5_4yvnd")
+stream_1/stream = ExtResource("6_v4ja2")
+stream_1/weight = 0.5
+stream_2/stream = ExtResource("7_p0sv2")
+stream_2/weight = 3.0
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=7433007]
 collision_layer = 0
 script = ExtResource("1_ru8t5")
@@ -68,3 +80,11 @@ position = Vector2(-2.3841858e-07, 2.3841858e-07)
 rotation = 0.7853982
 scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("RectangleShape2D_du3jv")
+
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="." unique_id=6666263]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_fvlyn")
+volume_db = -10.0
+max_distance = 360.0
+attenuation = 0.53588676
+bus = &"SFXWorld"

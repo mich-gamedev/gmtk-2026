@@ -4,6 +4,9 @@ extends CharacterBody2D
 @onready var fire_timer: Timer = $FireTimer
 @onready var los_check: RayCast2D = $LOSCheck
 @onready var anim: AnimationPlayer = $AnimationPlayer
+@onready var sfx_hit: AudioStreamPlayer2D = %SFXHit
+@onready var sfx_gunshot: AudioStreamPlayer2D = %SFXGunshot
+@onready var sfx_burnout: AudioStreamPlayer2D = %SFXBurnout
 
 enum {
 	STATE_IDLE,
@@ -51,6 +54,7 @@ func _physics_process(delta: float) -> void:
 	var coll := move_and_collide(velocity * delta)
 	if coll:
 		velocity = velocity.bounce(coll.get_normal()) * 1.05
+		sfx_hit.play()
 		if coll.get_collider() is Player:
 			GameLoop.state = GameLoop.STATE_DIE
 
@@ -64,6 +68,7 @@ var launch_dir: Vector2
 var launch_force_mult: float = 1
 
 func _on_fire_timer_timeout() -> void:
+	sfx_burnout.play()
 	warning.play(&"warn")
 	state = STATE_IDLE
 	launch_dir = global_position.direction_to(Player.node.global_position)
@@ -80,4 +85,5 @@ func _state_changed(old: int, new: int) -> void:
 
 
 func _on_fire_bullet_bullet_fired(bullet: Bullet) -> void:
+	sfx_gunshot.play()
 	velocity -= bullet.velocity * .1

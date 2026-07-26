@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_swcny")
 fx_radius = 24.0
+rand_weight = 1000.0
 scene = ExtResource("1_laig0")
 count = 2
 double_boss_count = 2

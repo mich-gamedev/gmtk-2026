@@ -12,6 +12,11 @@ class_name World extends Node2D
 @onready var main_menu_symbols: Sprite2D = $MainMenuSymbols
 @onready var config_symbols: Sprite2D = $ConfigSymbols
 @onready var boss_warning: RadialProgressBar = %BossWarning
+@onready var double_boss_sfx: AudioStreamPlayer = %DoubleBossSFX
+@onready var double_pick_sfx: AudioStreamPlayer = %DoublePickSFX
+@onready var wildcard_sfx: AudioStreamPlayer = %WildcardSFX
+@onready var died_sfx: AudioStreamPlayer = %DiedSFX
+@onready var info_label: Label = %InfoLabel
 
 const FX_SPAWN = preload("uid://1cxdqxcr7qpo")
 const PLAYER = preload("uid://b3vlb5w6ki5e0")
@@ -38,9 +43,11 @@ var event: int:
 			EVENT_DOUBLE_PICK:
 				if double_pick_anim.assigned_animation != &"show": double_pick_anim.play(&"show")
 				if wildcard_anim.assigned_animation == &"show": wildcard_anim.play(&"hide")
+				double_pick_sfx.play()
 			EVENT_WILD_CARD:
 				if double_pick_anim.assigned_animation == &"show": double_pick_anim.play(&"hide")
 				if wildcard_anim.assigned_animation != &"show": wildcard_anim.play(&"show")
+				wildcard_sfx.play()
 
 func _ready() -> void:
 	node = self
@@ -78,19 +85,25 @@ func _select_selected(index: int) -> void:
 				1: #config
 					GameLoop.state = GameLoop.STATE_CONFIG
 				2: #info
-					pass
+					GameLoop.state = GameLoop.STATE_INFO
 				3: #exit
 					get_tree().quit()
 
 var twn_warn: Tween
 
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_released(&"jump") and GameLoop.state == GameLoop.STATE_INFO:
+		GameLoop.state = GameLoop.STATE_MAIN_MENU
+
 
 func _state_changed(old: int, new: int) -> void:
+	info_label.hide()
 	config_symbols.hide()
 	main_menu_symbols.hide()
 	survive_timer.stop()
 	match new:
 		GameLoop.STATE_MAIN_MENU:
+			MusicHandler.transition(MusicHandler.SONG_RAND, 0.5)
 			GameLoop.reset()
 			Save.save()
 			ui.hide()
@@ -100,6 +113,7 @@ func _state_changed(old: int, new: int) -> void:
 			config_symbols.show()
 			if !Save.fetch().rotate_world: config_symbols.texture = load("res://assets/polar_assets/config_no_rot.svg")
 		GameLoop.STATE_SURVIVE:
+			MusicHandler.transition(MusicHandler.SONG_RAND, 2)
 			print(boss.resource_path)
 			ui.show()
 			await get_tree().create_timer(.5).timeout
@@ -131,6 +145,8 @@ func _state_changed(old: int, new: int) -> void:
 					var boss_node := boss_2.scene.instantiate()
 					add_child(boss_node)
 		GameLoop.STATE_DIE:
+			MusicHandler.transition(MusicHandler.SONG_DIED, 0.5)
+			died_sfx.play(.1)
 			GameLoop.hp -= 1
 			adjust_hp()
 			if GameLoop.hp > 0:
@@ -146,10 +162,10 @@ func _state_changed(old: int, new: int) -> void:
 				await get_tree().create_timer(4).timeout
 				GameLoop.state = GameLoop.STATE_MAIN_MENU
 		GameLoop.STATE_RESET:
-			GameLoop.hp += randi_range(0, 2) / (1 if GameLoop.hp < 5 else 2) + (1 if GameLoop.hp < 3 else 0)
+			GameLoop.hp += randi_range(0, 2) / (1 if GameLoop.hp < 3 else 2) + (1 if GameLoop.hp < 2 else 0)
 			adjust_hp()
 			GameLoop.level += 1
-			survive_timer.wait_time += randi_range(0, 3)
+			survive_timer.wait_time += randi_range(0, 3) * (2 if GameLoop.hp > 5 else 1)
 			if randf() < .2:
 				event = [EVENT_DOUBLE_PICK, EVENT_WILD_CARD].pick_random()
 			else:
@@ -158,17 +174,20 @@ func _state_changed(old: int, new: int) -> void:
 			GameLoop.state = GameLoop.STATE_PICK_SEGMENT if event != EVENT_WILD_CARD else GameLoop.STATE_SURVIVE
 			randomize_colors()
 			boss = BossInfo.get_random()
-			if randf() < .2:
+			if randf() < .2 * (2.5 if GameLoop.hp > 5 else 1.):
 				boss_2 = BossInfo.get_random()
 				double_boss.show()
+				double_boss_sfx.play()
 			else:
 				boss_2 = null
 				double_boss.hide()
+		GameLoop.STATE_INFO:
+			info_label.show()
 
 func adjust_hp() -> void:
-	hp_bar.max_value = max(GameLoop.hp, 5)
+	hp_bar.max_value = max(GameLoop.hp, 3)
 	hp_bar.value = GameLoop.hp
-	heartbeat_anim.speed_scale = remap(GameLoop.hp, 5, 1, 1.25, 5)
+	heartbeat_anim.speed_scale = remap(GameLoop.hp, 3, 1, 1.25, 5)
 
 func _on_survive_timer_timeout() -> void:
 	GameLoop.state = GameLoop.STATE_RESET

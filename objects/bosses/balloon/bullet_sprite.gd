@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var bullet: Bullet = $".."
 @onready var ring_draw: RingDraw = $"../RingDraw"
+@onready var sfx_ricochet: AudioStreamPlayer2D = %SFXRicochet
+
 
 
 const FX_SPAWN = preload("uid://1cxdqxcr7qpo")
@@ -15,6 +17,7 @@ func _bullet_destroying() -> void:
 	fx.reset_physics_interpolation()
 
 func _on_bullet_bounced() -> void:
+	sfx_ricochet.play()
 	ring_draw.rotation = bullet.velocity.angle() + PI/2
 	ring_draw.scale = Vector2(2, .5)
 	if twn: twn.kill()

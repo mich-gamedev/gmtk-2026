@@ -4,9 +4,24 @@
 [ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="1_8fc25"]
 [ext_resource type="Script" uid="uid://664y6d38hqgk" path="res://components/2d/bullets/fire_bullet.gd" id="3_di0rt"]
 [ext_resource type="PackedScene" uid="uid://c3dhjsmlo3nj" path="res://objects/bosses/balloon/bullet.tscn" id="4_qylmq"]
+[ext_resource type="AudioStream" uid="uid://dstqv5wewv3g3" path="res://objects/bosses/balloon/sfx/hit.ogg" id="5_6bqwi"]
+[ext_resource type="AudioStream" uid="uid://balihr1h6awc4" path="res://objects/bosses/balloon/sfx/hit2.ogg" id="6_6htiq"]
+[ext_resource type="AudioStream" uid="uid://bg071dk32sbtn" path="res://objects/bosses/balloon/sfx/hit3.ogg" id="7_h2r62"]
+[ext_resource type="AudioStream" uid="uid://b1mul0bkoro4v" path="res://objects/bosses/balloon/sfx/hit4.ogg" id="8_s54ea"]
+[ext_resource type="AudioStream" uid="uid://5t1cquju7k5g" path="res://objects/bosses/balloon/sfx/hit5.ogg" id="9_g1p5v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_du3jv"]
 radius = 18.027756
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gnyh2"]
+random_pitch = 1.0293022
+random_volume_offset_db = 2.0
+streams_count = 5
+stream_0/stream = ExtResource("5_6bqwi")
+stream_1/stream = ExtResource("6_6htiq")
+stream_2/stream = ExtResource("7_h2r62")
+stream_3/stream = ExtResource("8_s54ea")
+stream_4/stream = ExtResource("9_g1p5v")
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1885536274 groups=["boss"]]
 collision_layer = 2
@@ -92,3 +107,8 @@ timer = NodePath("Timer")
 metadata/_custom_type_script = "uid://664y6d38hqgk"
 
 [node name="Timer" type="Timer" parent="FireBullet" unique_id=832543977]
+
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="." unique_id=1859311794]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_gnyh2")
+bus = &"SFXWorld"

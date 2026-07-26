@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://drymkjqkjal7k"]
+
+[ext_resource type="AudioStream" uid="uid://pdqog5h4pyum" path="res://objects/bosses/balloon/sfx/pop.wav" id="1_o0nwy"]
+[ext_resource type="Script" uid="uid://cwo48rws6dh3e" path="res://objects/bosses/balloon/sfx/free_on_finish.gd" id="2_l0hf5"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gnyh2"]
+random_pitch = 1.2599211
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("1_o0nwy")
+
+[node name="SFXPop" type="AudioStreamPlayer2D" unique_id=566837649]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_gnyh2")
+autoplay = true
+bus = &"SFXWorld"
+
+[node name="Node" type="Node" parent="." unique_id=614456044 node_paths=PackedStringArray("sfx", "freed_node")]
+script = ExtResource("2_l0hf5")
+sfx = NodePath("..")
+freed_node = NodePath("..")

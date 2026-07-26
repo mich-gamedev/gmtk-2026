@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dl7sjjokoa7td" path="res://objects/bosses/acid_rain/bullet.gd" id="1_jlgnt"]
 [ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="2_4p4h6"]
 [ext_resource type="Script" uid="uid://dq3vwv5n3jxdy" path="res://objects/bosses/balloon/bullet_sprite.gd" id="3_56j1i"]
+[ext_resource type="AudioStream" uid="uid://dgv8708hhuaj" path="res://objects/player/sfx/land_2.mp3" id="4_il8rx"]
 
 [sub_resource type="Gradient" id="Gradient_8as6k"]
 offsets = PackedFloat32Array(0.48981482, 1)
@@ -57,6 +58,12 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_du3jv"]
 radius = 6.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gnyh2"]
+random_pitch = 1.122462
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("4_il8rx")
+
 [node name="Bullet" type="CharacterBody2D" unique_id=1128398988]
 collision_layer = 0
 script = ExtResource("1_jlgnt")
@@ -84,6 +91,13 @@ script = ExtResource("3_56j1i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=773717051]
 shape = SubResource("CircleShape2D_du3jv")
+
+[node name="SFXRicochet" type="AudioStreamPlayer2D" parent="." unique_id=881223447]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_gnyh2")
+volume_db = -6.0
+max_distance = 120.0
+max_polyphony = 2
 
 [connection signal="bounced" from="." to="Node2D" method="_on_bullet_bounced"]
 [connection signal="destroying" from="." to="Node2D" method="_bullet_destroying"]

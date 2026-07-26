@@ -1,11 +1,23 @@
 class_name Save extends Resource
 @export_group("Visual")
-@export var fullscreen: bool = false
-@export var vsync: bool = true
+@export var fullscreen: bool = false:
+	set(v):
+		fullscreen = v
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if v else DisplayServer.WINDOW_MODE_WINDOWED)
+@export var vsync: bool = true:
+	set(v):
+		vsync = v
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if v else DisplayServer.VSYNC_DISABLED)
 @export var rotate_world: bool = true
 @export_group("Audio")
-@export var vol_sfx: float = .75
-@export var vol_music: float = .75
+@export var vol_sfx: float = .75:
+	set(v):
+		vol_sfx = v
+		AudioServer.set_bus_volume_linear(2, v)
+@export var vol_music: float = .75:
+	set(v):
+		vol_music = v
+		AudioServer.set_bus_volume_linear(1, v)
 @export_group("Game")
 @export var high_score: int
 

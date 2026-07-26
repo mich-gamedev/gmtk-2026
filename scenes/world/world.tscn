@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://dqd7882p15aom" path="res://assets/fonts/BBH_Bartle/BBHBartle-Regular.ttf" id="2_j2gmx"]
 [ext_resource type="Shader" uid="uid://d2fwplcsjx1n5" path="res://resources/shaders/polar_coords.gdshader" id="3_srmg5"]
 [ext_resource type="Shader" uid="uid://c3g6upsmgdxy" path="res://resources/shaders/main.gdshader" id="4_6m72w"]
+[ext_resource type="AudioStream" uid="uid://dgkg8xjy44s8y" path="res://assets/sfx/flicker.wav" id="4_jyr8v"]
 [ext_resource type="Texture2D" uid="uid://bi7ip1un4s2dd" path="res://assets/material_symbols/subdirectory_arrow_left.svg" id="4_rwifv"]
 [ext_resource type="Texture2D" uid="uid://c3rsee0txpa6y" path="res://assets/material_symbols/settings.svg" id="4_xq18t"]
 [ext_resource type="Texture2D" uid="uid://yqinoxphr0ob" path="res://assets/material_symbols/power.svg" id="5_x0nq1"]
@@ -19,13 +20,22 @@
 [ext_resource type="Script" uid="uid://d1iej1ifgper7" path="res://scenes/world/fisheye.gd" id="8_5qq27"]
 [ext_resource type="Texture2D" uid="uid://fe0acr878u1c" path="res://assets/polar_assets/double_pick.svg" id="9_m114p"]
 [ext_resource type="Texture2D" uid="uid://bt6aoq2uikicd" path="res://assets/polar_assets/wildcard.svg" id="10_71ii3"]
+[ext_resource type="AudioStream" uid="uid://db50xh1vokb72" path="res://assets/sfx/double_boss.mp3" id="11_5o5dd"]
 [ext_resource type="Script" uid="uid://cctcdwc14tml2" path="res://components/2d/drawing/radial_progres_bar.gd" id="11_bt7bg"]
 [ext_resource type="Shader" uid="uid://dicg7aclg38li" path="res://resources/shaders/greyscale.gdshader" id="11_dlabj"]
+[ext_resource type="AudioStream" uid="uid://bg0to01m32dg5" path="res://assets/sfx/double_pick.wav" id="12_fymcc"]
 [ext_resource type="Script" uid="uid://cu2m807vcevnq" path="res://scenes/world/greyscale.gd" id="12_srmg5"]
 [ext_resource type="Texture2D" uid="uid://dqeyx5v7murmm" path="res://assets/material_symbols/heart.svg" id="12_wbwoo"]
 [ext_resource type="Texture2D" uid="uid://dv4bbpfuftrwu" path="res://assets/polar_assets/config.svg" id="12_x0nq1"]
+[ext_resource type="AudioStream" uid="uid://o4d06frdv1f1" path="res://assets/sfx/wildcard.wav" id="13_lbnhc"]
 [ext_resource type="Texture2D" uid="uid://bdug8iob0r62i" path="res://assets/polar_assets/play.svg" id="13_tytul"]
+[ext_resource type="AudioStream" uid="uid://txllismunfnd" path="res://objects/player/sfx/die.mp3" id="14_lbnhc"]
 [ext_resource type="Texture2D" uid="uid://bqxjfoxowjut8" path="res://assets/polar_assets/double_boss.svg" id="14_umvgx"]
+[ext_resource type="FontFile" uid="uid://bhnxn36psqgdj" path="res://assets/fonts/Google_Sans_Flex/static/GoogleSansFlex_9pt-Bold.ttf" id="25_sygq6"]
+[ext_resource type="Script" uid="uid://cqojlkmd4jy0l" path="res://scenes/world/music_handler.gd" id="27_26xou"]
+[ext_resource type="AudioStream" uid="uid://csb4d4stydvb8" path="res://assets/music/survive.wav" id="27_ckok1"]
+[ext_resource type="AudioStream" uid="uid://4mt5jo15oajk" path="res://assets/music/main_menu.wav" id="29_jyr8v"]
+[ext_resource type="AudioStream" uid="uid://cw1cbk2a0e18u" path="res://assets/music/died.wav" id="30_5o5dd"]
 
 [sub_resource type="Animation" id="Animation_6m72w"]
 length = 0.001
@@ -102,9 +112,15 @@ tracks/5/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jyr8v"]
+random_pitch = 1.0293022
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("4_jyr8v")
+
 [sub_resource type="Animation" id="Animation_v5dby"]
 resource_name = "show"
-length = 0.25
+length = 0.3
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -142,10 +158,25 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../AudioStreamPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.185,
+"start_offset": 0.23,
+"stream": SubResource("AudioStreamRandomizer_jyr8v")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="Animation" id="Animation_5o5dd"]
 resource_name = "show_back"
-length = 0.25
+length = 0.3
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -207,10 +238,25 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../AudioStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.185,
+"start_offset": 0.23,
+"stream": SubResource("AudioStreamRandomizer_jyr8v")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="Animation" id="Animation_2x71e"]
 resource_name = "show_config"
-length = 0.25
+length = 0.3
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -272,10 +318,25 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../AudioStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.185,
+"start_offset": 0.23,
+"stream": SubResource("AudioStreamRandomizer_jyr8v")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="Animation" id="Animation_wnndm"]
 resource_name = "show_exit"
-length = 0.25
+length = 0.3
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -337,10 +398,25 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../AudioStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.185,
+"start_offset": 0.23,
+"stream": SubResource("AudioStreamRandomizer_jyr8v")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="Animation" id="Animation_26xou"]
 resource_name = "show_info"
-length = 0.25
+length = 0.3
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -402,10 +478,25 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../AudioStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.185,
+"start_offset": 0.23,
+"stream": SubResource("AudioStreamRandomizer_jyr8v")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="Animation" id="Animation_jyr8v"]
 resource_name = "show_play"
-length = 0.25
+length = 0.3
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -470,41 +561,34 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath(".:text")
+tracks/5/path = NodePath(".:visible_ratio")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["[font_size=16]
-
-
-
-
-
-
-
-
-hi-score
-[font_size=80]40"]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath(".:visible_ratio")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 1.0]
 }
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../AudioStreamPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.185,
+"start_offset": 0.23,
+"stream": SubResource("AudioStreamRandomizer_jyr8v")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/6/use_blend = true
 
 [sub_resource type="Animation" id="Animation_x0nq1"]
 resource_name = "show_play_no_highscore"
-length = 0.25
+length = 0.3
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -566,6 +650,21 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(1.25, 1.25)]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../AudioStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.185,
+"start_offset": 0.23,
+"stream": SubResource("AudioStreamRandomizer_jyr8v")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t5ptc"]
 _data = {
@@ -582,6 +681,12 @@ _data = {
 [sub_resource type="FontVariation" id="FontVariation_gy4cg"]
 base_font = ExtResource("2_j2gmx")
 spacing_top = -14
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gnyh2"]
+random_pitch = 1.122462
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("14_lbnhc")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tp342"]
 shader = ExtResource("3_srmg5")
@@ -842,6 +947,10 @@ _data = {
 &"show": SubResource("Animation_bt7bg")
 }
 
+[sub_resource type="FontVariation" id="FontVariation_bmwla"]
+base_font = ExtResource("25_sygq6")
+spacing_bottom = -5
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gy4cg"]
 shader = ExtResource("4_6m72w")
 
@@ -925,6 +1034,34 @@ visible_characters_behavior = 1
 [node name="Sprite" type="Sprite2D" parent="Clock" unique_id=952860337]
 visible = false
 modulate = Color(0, 0, 1, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Clock" unique_id=1266744313]
+volume_db = -10.0
+
+[node name="DoubleBossSFX" type="AudioStreamPlayer" parent="Clock" unique_id=1788690111]
+unique_name_in_owner = true
+stream = ExtResource("11_5o5dd")
+volume_db = -10.0
+pitch_scale = 1.5
+bus = &"SFXUI"
+
+[node name="DoublePickSFX" type="AudioStreamPlayer" parent="Clock" unique_id=406020979]
+unique_name_in_owner = true
+stream = ExtResource("12_fymcc")
+volume_db = -4.0
+bus = &"SFXUI"
+
+[node name="WildcardSFX" type="AudioStreamPlayer" parent="Clock" unique_id=184818862]
+unique_name_in_owner = true
+stream = ExtResource("13_lbnhc")
+volume_db = -4.0
+bus = &"SFXUI"
+
+[node name="DiedSFX" type="AudioStreamPlayer" parent="Clock" unique_id=1272520753]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_gnyh2")
+volume_db = -3.0
+bus = &"SFXWorld"
 
 [node name="Platform" parent="." unique_id=1687246455 instance=ExtResource("2_1fp7r")]
 
@@ -1108,6 +1245,46 @@ texture = ExtResource("9_m114p")
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_wbwoo")
 
+[node name="InfoLayer" type="CanvasLayer" parent="." unique_id=1428956641]
+
+[node name="InfoLabel" type="Label" parent="InfoLayer" unique_id=1009989401]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -97.0
+offset_top = -188.5
+offset_right = 97.0
+offset_bottom = 188.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_bmwla")
+theme_override_font_sizes/font_size = 8
+text = "Game made by _michdev
+made for the GMTK game jam 2026!
+
+Tools used:
+    - Godot v4.7
+    - FL Studio 2025
+    - Audacity
+    - Inkscape
+Assets used:
+    - Kenney.nl
+    - Pixabay
+    - Freesound
+    - Google Fonts
+    - Material Symbols
+Fonts:
+    - BBH Bartle
+    - Google Sans Flex
+
+Press space to go back!
+"
+vertical_alignment = 1
+
 [node name="Filter" type="CanvasLayer" parent="." unique_id=1836543944]
 layer = 2
 
@@ -1254,5 +1431,26 @@ bar_color = Color(1, 0, 0, 1)
 draw_ticks = true
 tick_color = Color(0, 1, 0, 1)
 metadata/_custom_type_script = "uid://cctcdwc14tml2"
+
+[node name="MusicHandler" type="Node" parent="." unique_id=2126178443]
+script = ExtResource("27_26xou")
+
+[node name="Survive" type="AudioStreamPlayer" parent="MusicHandler" unique_id=54760743]
+stream = ExtResource("27_ckok1")
+volume_db = -80.0
+autoplay = true
+bus = &"Music"
+
+[node name="MainMenu" type="AudioStreamPlayer" parent="MusicHandler" unique_id=1560212473]
+stream = ExtResource("29_jyr8v")
+volume_db = -80.0
+autoplay = true
+bus = &"Music"
+
+[node name="Died" type="AudioStreamPlayer" parent="MusicHandler" unique_id=650883293]
+stream = ExtResource("30_5o5dd")
+volume_db = -80.0
+autoplay = true
+bus = &"Music"
 
 [connection signal="timeout" from="SurviveTimer" to="." method="_on_survive_timer_timeout"]

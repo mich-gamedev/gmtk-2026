@@ -9,6 +9,7 @@ enum {
 	STATE_RESET,
 	STATE_DIE,
 	STATE_CONFIG,
+	STATE_INFO
 }
 
 var state := STATE_MAIN_MENU:
@@ -19,9 +20,9 @@ var state := STATE_MAIN_MENU:
 signal state_changed(old: int, new: int)
 
 var level: int = 1
-var hp: int = 5
+var hp: int = 3
 
 func reset(reset_state: bool = false) -> void:
 	level = 1
-	hp = 5
+	hp = 3
 	if reset_state: state = STATE_MAIN_MENU

@@ -20,6 +20,9 @@ var virt_velocity: Vector2
 @onready var buffer_timer: Timer = $BufferTimer
 @onready var shape: CollisionShape2D = $CollisionShape2D
 @onready var hurt_anim: AnimationPlayer = %HurtAnim
+@onready var sfx_move: AudioStreamPlayer2D = %SFXMove
+@onready var sfx_jump: AudioStreamPlayer2D = %SFXJump
+@onready var sfx_land: AudioStreamPlayer2D = %SFXLand
 
 func _ready() -> void:
 	node = self
@@ -34,11 +37,13 @@ func _physics_process(delta: float) -> void:
 	elif up_direction.angle_to(global_position.direction_to(Vector2.ZERO)) < PI/2 and !global_position.is_zero_approx(): up_direction = global_position.direction_to(Vector2.ZERO)
 	#endregion
 	virt_velocity.x = move_toward(virt_velocity.x, Input.get_axis(&"walk_left", &"walk_right") * speed, accel * delta)
+	sfx_move.volume_db = remap(abs(Input.get_axis(&"walk_left", &"walk_right")), 0, 1, -80, -20) if is_on_floor() else -80.
 
 	#region jumping
 	if is_on_floor():
 		if !was_on_floor:
 				MainCam.add_cam_offsetter(CameraImpulse.new(2, up_direction.angle(), 0.15, 0.15))
+				sfx_land.play()
 		was_on_floor = true
 		can_jump = true
 		coyote_timer.stop()
@@ -72,6 +77,7 @@ func _physics_process(delta: float) -> void:
 	else: MainCam.cam.global_position = global_position * .1
 
 func jump(jump_scale: float = 1.) -> void:
+	sfx_jump.play()
 	virt_velocity.y = -jump_speed * jump_scale
 	can_jump = false
 	is_jumping = false

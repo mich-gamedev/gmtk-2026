@@ -4,6 +4,8 @@ var virt_velocity: Vector2
 
 @onready var sprite: Node2D = $Sprite
 @onready var fire_bullet: FireBullet = $FireBullet
+@onready var sfx_hit: AudioStreamPlayer2D = %SFXHit
+const SFX_POP = preload("uid://drymkjqkjal7k")
 
 const FX_SPAWN = preload("uid://1cxdqxcr7qpo")
 
@@ -23,6 +25,7 @@ func _physics_process(delta: float) -> void:
 	var coll := move_and_collide(virt_velocity.rotated(up_direction.angle() + PI/2) * delta)
 
 	if coll:
+		sfx_hit.play()
 		virt_velocity.y = -256
 		virt_velocity.x = 128 * lerp(-1, 1, randi_range(0, 1))
 		if twn: twn.kill()
@@ -34,6 +37,10 @@ func _physics_process(delta: float) -> void:
 			get_tree().current_scene.add_child(fx)
 			fx.global_position = global_position
 			fx.reset_physics_interpolation()
+			var sfx := SFX_POP.instantiate()
+			get_tree().current_scene.add_child(sfx)
+			sfx.global_position = global_position
+			sfx.reset_physics_interpolation()
 			queue_free()
 
 func _state_changed(old: int, new: int) -> void:

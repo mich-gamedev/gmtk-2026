@@ -19,6 +19,17 @@ func _select_changed(index: int) -> void:
 		GameLoop.STATE_MAIN_MENU:
 			match index:
 				0: #play
+					label.text = "[font_size=16]
+
+
+
+
+
+
+
+
+hi-score
+[font_size=80]%02d" % Save.fetch().high_score
 					anim.play(&"show_play" if Save.fetch().high_score else &"show_play_no_highscore")
 				1: #config
 					anim.play(&"show_config")

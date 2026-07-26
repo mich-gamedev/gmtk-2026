@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://664y6d38hqgk" path="res://components/2d/bullets/fire_bullet.gd" id="2_rp5ty"]
 [ext_resource type="PackedScene" uid="uid://b6q4sejkiwqwb" path="res://objects/bosses/acid_rain/bullet.tscn" id="3_rp5ty"]
 [ext_resource type="Texture2D" uid="uid://b5n465onkjhkc" path="res://assets/material_symbols/circle.svg" id="3_yghip"]
+[ext_resource type="AudioStream" uid="uid://qohqfciwd588" path="res://objects/bosses/acid_rain/sfx/turn.ogg" id="5_8yhwe"]
+[ext_resource type="AudioStream" uid="uid://c8gk3xi2qvlkm" path="res://objects/bosses/acid_rain/sfx/wind.mp3" id="6_6ofwc"]
 
 [sub_resource type="Curve" id="Curve_noq2t"]
 _limits = [-2.0, 2.0, 0.0, 1.0]
@@ -95,5 +97,20 @@ texture = ExtResource("3_yghip")
 use_fixed_seed = true
 seed = 2799928080
 process_material = SubResource("ParticleProcessMaterial_hkje2")
+
+[node name="SFXTurn" type="AudioStreamPlayer" parent="." unique_id=618970902]
+unique_name_in_owner = true
+stream = ExtResource("5_8yhwe")
+volume_db = -10.0
+bus = &"SFXWorld"
+
+[node name="SFXWind" type="AudioStreamPlayer2D" parent="." unique_id=1583910719]
+stream = ExtResource("6_6ofwc")
+volume_db = -12.0
+autoplay = true
+stream_paused = true
+max_distance = 360.0
+attenuation = 0.4665165
+bus = &"SFXWorld"
 
 [connection signal="timeout" from="FireBullet/Timer" to="." method="_on_timer_timeout"]

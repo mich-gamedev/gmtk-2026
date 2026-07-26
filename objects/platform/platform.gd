@@ -132,6 +132,9 @@ func _state_changed(old: int, new: int) -> void:
 				await get_tree().create_timer(2).timeout
 				displayed_segments = get_empty_segments(3)
 				update()
+		GameLoop.STATE_INFO:
+			displayed_segments = get_empty_segments(3)
+			update()
 
 func get_empty_segments(size: int) -> Array[PlatformSegment]:
 	var arr : Array[PlatformSegment] = []

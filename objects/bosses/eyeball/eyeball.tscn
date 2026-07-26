@@ -3,9 +3,33 @@
 [ext_resource type="Script" uid="uid://dyvjst01jqwwu" path="res://objects/bosses/eyeball/eyeball.gd" id="1_au58l"]
 [ext_resource type="Script" uid="uid://bxm5rpt45kanq" path="res://components/2d/drawing/fancy_circle.gd" id="1_yjnss"]
 [ext_resource type="Script" uid="uid://7vxgteghqohj" path="res://objects/bosses/eyeball/sprite.gd" id="2_j52e6"]
+[ext_resource type="AudioStream" uid="uid://cymnrhkf0mwc" path="res://objects/player/sfx/jump-01.wav" id="4_pwxkj"]
+[ext_resource type="AudioStream" uid="uid://bmw8xeq60reqy" path="res://objects/player/sfx/jump-02.wav" id="5_7la4v"]
+[ext_resource type="AudioStream" uid="uid://c2ixsayc432x" path="res://objects/player/sfx/jump-03.wav" id="6_yw7ws"]
+[ext_resource type="AudioStream" uid="uid://bmfkh02kemppn" path="res://objects/bosses/eyeball/sfx/huh-01.wav" id="7_b0aai"]
+[ext_resource type="AudioStream" uid="uid://cf7y3jretrvbx" path="res://objects/bosses/eyeball/sfx/huh-02.wav" id="8_61ax4"]
+[ext_resource type="AudioStream" uid="uid://c5n383qxyross" path="res://objects/bosses/eyeball/sfx/huh-03.wav" id="9_70x1l"]
+[ext_resource type="AudioStream" uid="uid://cpxf0agwynlwg" path="res://objects/bosses/eyeball/sfx/huh-04.wav" id="10_i4jbf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gy4cg"]
 radius = 18.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gnyh2"]
+random_pitch = 1.122462
+random_volume_offset_db = 2.0
+streams_count = 3
+stream_0/stream = ExtResource("4_pwxkj")
+stream_1/stream = ExtResource("5_7la4v")
+stream_2/stream = ExtResource("6_yw7ws")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bmwla"]
+random_pitch = 1.122462
+random_volume_offset_db = 3.0
+streams_count = 4
+stream_0/stream = ExtResource("7_b0aai")
+stream_1/stream = ExtResource("8_61ax4")
+stream_2/stream = ExtResource("9_70x1l")
+stream_3/stream = ExtResource("10_i4jbf")
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1793570480 groups=["boss"]]
 collision_layer = 0
@@ -47,3 +71,24 @@ metadata/_custom_type_script = "uid://bxm5rpt45kanq"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=752517990]
 shape = SubResource("CircleShape2D_gy4cg")
+
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="." unique_id=1858801241]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_gnyh2")
+max_distance = 360.0
+bus = &"SFXWorld"
+
+[node name="SFXHuh" type="AudioStreamPlayer2D" parent="." unique_id=1360085646]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_bmwla")
+volume_db = -7.0
+max_distance = 480.0
+attenuation = 0.40612617
+bus = &"SFXWorld"
+
+[node name="HuhTimer" type="Timer" parent="." unique_id=636920331]
+unique_name_in_owner = true
+wait_time = 1.5
+autostart = true
+
+[connection signal="timeout" from="HuhTimer" to="." method="_on_huh_timer_timeout"]

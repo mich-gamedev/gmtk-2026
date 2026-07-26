@@ -4,6 +4,7 @@ const LASER = preload("uid://3so47q12h20b")
 
 var last_bounce: Vector2
 @onready var bolt: Sprite2D = $ElectricBolt
+@onready var sfx_hit: AudioStreamPlayer2D = %SFXHit
 
 func _ready() -> void:
 	velocity = Vector2.from_angle(randf() * TAU) * 256
@@ -16,6 +17,7 @@ func _physics_process(delta: float) -> void:
 	last_bounce = last_bounce.rotated(PI/4 * delta)
 	var coll := move_and_collide(velocity * delta)
 	if coll:
+		sfx_hit.play()
 		velocity = velocity.bounce(coll.get_normal()).rotated(randf_range(-PI/8, PI/8))
 		var laser := LASER.instantiate() as ConnectorLaser
 		laser.point_a = last_bounce
